@@ -5,6 +5,7 @@ Processes input after it has been parsed. Performs the dataflow for input.
 # from .utils.keywords import keyword_check
 # from .keywords.preprocessing.encode_functions import encode_categorical
 import numpy as np
+import json
 keywords = {
             'load':['fileName'],
             'read':['filename', 'header', 'sep', 'dtypes'],
@@ -72,7 +73,7 @@ def _keyword_check(parsing):
                 except KeyError:
                     keys[key][innerKey] = None
 
-    return keys
+    return json.dump(keys)
 
 # def summary_msg(filename, header, sep, train, test, predictors, label, algo, replaceCols, replaceVal, replaceIdent, clusters, missingVal, verbose=False):
 #     """
