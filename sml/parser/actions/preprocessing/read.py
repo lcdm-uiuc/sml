@@ -4,7 +4,7 @@ from ...util._constants import index_and_type_list
 from pyparsing import Word, Keyword, Optional, MatchFirst, Literal, oneOf, delimitedList
 
 def define_read():
-    filename = Word(everythingWOQuotes).setResultsName("filename")
+    filename = Word(everythingWOQuotes).setResultsName("fileName")
     #define so that there can be multiple verisions of READ
     readKeyword = Keyword("read", caseless = True).setResultsName("read")
     #Compose Read Optionals

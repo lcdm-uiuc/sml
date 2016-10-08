@@ -1,5 +1,4 @@
 import sys
-
 from .parser.parser import smlparser
 from .connector.connector import handle
 
@@ -28,7 +27,7 @@ def repl(verbose=False):
 	while True:
 		command = input(">")
 		if command.lower() == "exit":
-			print("Exiting SMLL")
+			print("Exiting SML")
 			break
 		else:
 			result = myparser.parseString(command)

@@ -1,14 +1,10 @@
 """
 Processes input after it has been parsed. Performs the dataflow for input.
 """
-# from .utils.modelIO import save_model
-# from .utils.keywords import keyword_check
-# from .keywords.preprocessing.encode_functions import encode_categorical
 import numpy as np
-import json
 keywords = {
             'load':['fileName'],
-            'read':['filename', 'header', 'sep', 'dtypes'],
+            'read':['fileName', 'header', 'sep', 'dtypes'],
             'split':['train_split','test_split'],
             'replace':['replaceColumns','replaceValue','replaceIdentifier',
             'replaceIdentifier','replaceValue'],
@@ -21,37 +17,10 @@ keywords = {
 listOptions = ['predictors', 'dtypes']
 
 def handle(parsing, verbose):
-    # print(parsing)
-    #Extract relevant features from the query
-    #read
-    filename = parsing.filename
-    header = parsing.header
-    sep = parsing.sep
-    types = parsing.dtypes
-    #split
-    train = parsing.train_split
-    test = parsing.test_split
-    # algorithm
-    predictors = parsing.predictors
-    label = parsing.label
-    algo = parsing.algorithm
-    # replace
-    replaceCols = parsing.replaceColumns
-    replaceVal = parsing.replaceValue
-    replaceIdent = parsing.replaceIdentifier
-    clusters = parsing.clusters
-    missingVal = parsing.replaceIdentifier
-    replaceVal = parsing.replaceValue
-
     #create a dictionary with all keywords
     keywords_used = _keyword_check(parsing)
-    print(keywords_used)
-
-    #save model to file if save keyword is included
-    if keywords_used.get("save"):
-        sfile = parsing.savefile
-        print(model)
-        # save_model(sfile, model)
+    #print out summary message
+    summary_msg(keywords_used)
 
 
 def _keyword_check(parsing):
@@ -73,34 +42,42 @@ def _keyword_check(parsing):
                 except KeyError:
                     keys[key][innerKey] = None
 
-    return json.dump(keys)
+    return keys
 
-# def summary_msg(filename, header, sep, train, test, predictors, label, algo, replaceCols, replaceVal, replaceIdent, clusters, missingVal, verbose=False):
-#     """
-#     Prints out detailed  summary message if verbose is True. Or simple summary message.
-#     """
-#     if verbose:
-#         print (\
-# '''
-# mlsql Summary:
-# =============================================
-# =============================================
-#    Dataset:        %s
-#    Delimiter:      %s
-#    Training Set Split:       %.2f%%
-#    Testing Set Split:        %.2f%%
-#    Predictiors:        %s
-#    Label:         %s
-#    Algorithm:     %s
-# =============================================
-# =============================================
-# ''' % (filename, sep, float(train)*100, float(test)*100, predictors, label, algo))
-#     else:
-#         print ('Using %s Algorithm, the dataset is from: %s. Currently using Predictors from column(s) %s and Label(s) from column(s) %s. ' \
-#         % (algo, filename, predictors, label) )
-#
-#
-#
+def summary_msg(parsingInfo):
+    verbose = True
+    filename = parsingInfo['read']['fileName']
+    sep = parsingInfo['read']['sep']
+    train = parsingInfo['split']['train_split']
+    test = parsingInfo['split']['test_split']
+    predictors = parsingInfo['algorithm']['predictors']
+    label = parsingInfo['algorithm']['label']
+    algo = parsingInfo['algorithm']['algorithm']
+    """
+    Prints out detailed  summary message if verbose is True. Or simple summary message.
+    """
+    if verbose:
+        print (\
+'''
+Sml Summary:
+=============================================
+=============================================
+   Dataset:        %s
+   Delimiter:      %s
+   Training Set Split:       %.2f%%
+   Testing Set Split:        %.2f%%
+   Predictiors:        %s
+   Label:         %s
+   Algorithm:     %s
+=============================================
+=============================================
+''' % (filename, sep, float(train)*100, float(test)*100, predictors, label, algo))
+    else:
+        print ('Using %s Algorithm, the dataset is from: %s. Currently using Predictors from column(s) %s and Label(s) from column(s) %s. ' \
+        % (algo, filename, predictors, label) )
+
+
+
 # def _model_phase(keywords, filename, header, sep, train, predictors, label, algorithm, replace = None, clusters = None, verbose=False, types=None):
 #     """
 #     Model phase of ML-SQL used to create a model
