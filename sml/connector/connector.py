@@ -19,8 +19,9 @@ listOptions = ['predictors', 'dtypes']
 def handle(parsing, verbose):
     #create a dictionary with all keywords
     keywords_used = _keyword_check(parsing)
+    print(keywords_used)
     #print out summary message
-    summary_msg(keywords_used)
+    summary_msg(keywords_used, verbose)
 
 
 def _keyword_check(parsing):
@@ -44,8 +45,7 @@ def _keyword_check(parsing):
 
     return keys
 
-def summary_msg(parsingInfo):
-    verbose = True
+def summary_msg(parsingInfo, verbose=False):
     filename = parsingInfo['read']['fileName']
     sep = parsingInfo['read']['sep']
     train = parsingInfo['split']['train_split']
@@ -54,7 +54,8 @@ def summary_msg(parsingInfo):
     label = parsingInfo['algorithm']['label']
     algo = parsingInfo['algorithm']['algorithm']
     """
-    Prints out detailed  summary message if verbose is True. Or simple summary message.
+    Prints out detailed  summary message if verbose is True.
+    Or simple summary message.
     """
     if verbose:
         print (\
