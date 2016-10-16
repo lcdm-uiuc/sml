@@ -2,8 +2,8 @@
 Handles persisting models by saving and loading them into files
 """
 
-from .filepath import get_model_type, get_relative_filename, file_exists
-from .algorithms import check_all
+from ...utils.filepath import get_model_type, get_relative_filename, file_exists
+from ..algorithms.algorithms import check_all
 import json
 
 # Constant defining how a file is split into separate components
@@ -18,7 +18,7 @@ def save_model(filename, model):
 
     relative_file = get_relative_filename(filename)
 
-    #ensure file does not already exist, if it does, program will add _ INTEGER to the 
+    #ensure file does not already exist, if it does, program will add _ INTEGER to the
     #end of the file to create a unique file
     from os.path import isfile
     counter = 2
@@ -54,7 +54,7 @@ def load_model(filename):
     with open(filename, 'r') as f:
         model = f.readline()
         text = f.readline()
-    
+
     dictionary = json.loads(text)
     fit = check_all(model)
     fit.set_params(**dictionary)

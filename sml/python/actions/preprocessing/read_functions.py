@@ -2,7 +2,7 @@
 Performs logic to handle the read keyword from ML-SQL language
 """
 
-from ...utils.modelIO import load_model
+from ..IO.modelIO import load_model
 from ...utils.filepath import is_mlsql_file, file_exists
 
 def handle_read(userfile, separator, header,types = None):
@@ -10,7 +10,7 @@ def handle_read(userfile, separator, header,types = None):
     Main exported function
     Performs logic to handle the read keyword from ML-SQL language
     """
-    print("handle read")
+    print("handle read dependency check")
     # if is_mlsql_file(userfile):
     #     model = load_model(userfile)
     # else:

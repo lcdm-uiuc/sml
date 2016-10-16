@@ -39,7 +39,7 @@ def handle_regress_algorithm(algorithm):
         return linear_model.Ridge(alpha=0.1)
     elif algo_name =='elastic':
         from sklearn.linear_model import ElasticNet
-        return ElasticNet(alpha=0.1)    
+        return ElasticNet(alpha=0.1)
 
     else:
         print("Error: regression algorithm '" + algo_name + "' is not available")

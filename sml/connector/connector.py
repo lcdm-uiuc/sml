@@ -3,6 +3,10 @@ Processes input after it has been parsed. Performs the dataflow for input.
 """
 import numpy as np
 from ..python.actions.preprocessing.read_functions import handle_read
+from ..python.actions.IO.load_functions import handle_load
+from ..python.actions.algorithms.classify_functions import handle_classify
+from ..python.actions.algorithms.regress_functions import handle_regress
+from ..python.actions.algorithms.cluster_functions import handle_cluster
 
 keywords = {
             'load':['fileName'],
@@ -25,6 +29,11 @@ def handle(parsing, verbose):
     # print out summary message
     summary_msg(keywords_used, verbose)
     handle_read('a','b','c')
+    handle_load('a')
+    handle_classify('a','b','c','d')
+    handle_cluster('a','b','c','d')
+    handle_regress('a','b','c','d')
+
 
 def _keyword_check(parsing):
     keys = {}
