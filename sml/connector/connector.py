@@ -2,6 +2,8 @@
 Processes input after it has been parsed. Performs the dataflow for input.
 """
 import numpy as np
+from ..python.actions.preprocessing.read_functions import handle_read
+
 keywords = {
             'load':['fileName'],
             'read':['fileName', 'header', 'sep', 'dtypes'],
@@ -17,12 +19,12 @@ keywords = {
 listOptions = ['predictors', 'dtypes']
 
 def handle(parsing, verbose):
-    #create a dictionary with all keywords
+    # create a dictionary with all keywords
     keywords_used = _keyword_check(parsing)
     print(keywords_used)
-    #print out summary message
+    # print out summary message
     summary_msg(keywords_used, verbose)
-
+    handle_read('a','b','c')
 
 def _keyword_check(parsing):
     keys = {}
