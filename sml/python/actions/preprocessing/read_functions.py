@@ -2,18 +2,19 @@
 Performs logic to handle the read keyword from ML-SQL language
 """
 
-from ..utils.modelIO import load_model
-from ..utils.filepath import is_mlsql_file, file_exists
+from ...utils.modelIO import load_model
+from ...utils.filepath import is_mlsql_file, file_exists
 
 def handle_read(userfile, separator, header,types = None):
     """
     Main exported function
     Performs logic to handle the read keyword from ML-SQL language
     """
-    if is_mlsql_file(userfile):
-        model = load_model(userfile)
-    else:
-        return _read_data_file(userfile, separator, header, types)
+    print("handle read")
+    # if is_mlsql_file(userfile):
+    #     model = load_model(userfile)
+    # else:
+    #     return _read_data_file(userfile, separator, header, types)
 
 
 def _read_data_file(userfile, separator, header, types=None):
