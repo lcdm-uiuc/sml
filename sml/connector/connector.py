@@ -24,7 +24,7 @@ def handle(parsing, verbose):
     print(keywords_used)
     # print out summary message
     summary_msg(keywords_used, verbose)
-    handle_read('a','b','c')
+
 
 def _keyword_check(parsing):
     keys = {}
