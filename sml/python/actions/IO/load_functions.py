@@ -7,10 +7,9 @@ from os.path import isfile
 
 def handle_load(filename):
 	#Check if the file exists
-	print('handle load dependency check')
-	# if is_mlsql_file(filename):
-	# 	print("Loading model from: '" + filename + "'")
-	# 	model = load_model(filename)
-	# else:
-	# 	print("Filename: '" + filename + "' does not have a .mlsql extension")
-	# 	return None
+	if is_mlsql_file(filename):
+		print("Loading model from: '" + filename + "'")
+		model = load_model(filename)
+	else:
+		print("Filename: '" + filename + "' does not have a .mlsql extension")
+		return None

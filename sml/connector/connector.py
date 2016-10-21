@@ -2,91 +2,98 @@
 Processes input after it has been parsed. Performs the dataflow for input.
 """
 import numpy as np
-from ..python.actions.preprocessing.read_functions import handle_read
-from ..python.actions.IO.load_functions import handle_load
-from ..python.actions.algorithms.classify_functions import handle_classify
-from ..python.actions.algorithms.regress_functions import handle_regress
-from ..python.actions.algorithms.cluster_functions import handle_cluster
 
-keywords = {
-            'load':['fileName'],
-            'read':['fileName', 'header', 'sep', 'dtypes'],
-            'split':['train_split','test_split'],
-            'replace':['replaceColumns','replaceValue','replaceIdentifier',
-            'replaceIdentifier','replaceValue'],
-            'algorithm': ['predictors', 'label', 'algorithm'],
-            'classify': [],
-            'regress': [],
-            'cluster': [],
-            'save': ['savefile']
-             }
-listOptions = ['predictors', 'dtypes']
+from .summaries import *
+from .util import *
+
+
 
 def handle(parsing, verbose):
-    # create a dictionary with all keywords
-    keywords_used = _keyword_check(parsing)
-    print(keywords_used)
-    # print out summary message
-    summary_msg(keywords_used, verbose)
-    handle_read('a','b','c')
-    handle_load('a')
-    handle_classify('a','b','c','d')
-    handle_cluster('a','b','c','d')
-    handle_regress('a','b','c','d')
+    keywords = keyword_check(parsing)
+    # print(keywords)
+    model, X_test, y_test = _model_phase(keywords, verbose)
 
+def _model_phase(keywords, verbose=False):
+    if keywords.get('load') and keywords.get('read'):
+        print('Cannot Execute both LOAD and READ on same query')
+        return None, None, None
 
-def _keyword_check(parsing):
-    keys = {}
-    for key in keywords:
-        parse_check = None
-        try:
-            parse_check = parsing[key]
-        except KeyError:
-            parse_check = ""
-        if (parse_check is not None) and (parse_check != ""):
-            keys[key] = {}
-            for innerKey in keywords[key]:
-                try:
-                    if innerKey in listOptions:
-                        keys[key][innerKey] = [x.strip() for x in parsing[innerKey].split(',')]
-                    else:
-                        keys[key][innerKey] = parsing[innerKey]
-                except KeyError:
-                    keys[key][innerKey] = None
-
-    return keys
-
-def summary_msg(parsingInfo, verbose=False):
-    filename = parsingInfo['read']['fileName']
-    sep = parsingInfo['read']['sep']
-    train = parsingInfo['split']['train_split']
-    test = parsingInfo['split']['test_split']
-    predictors = parsingInfo['algorithm']['predictors']
-    label = parsingInfo['algorithm']['label']
-    algo = parsingInfo['algorithm']['algorithm']
-    """
-    Prints out detailed  summary message if verbose is True.
-    Or simple summary message.
-    """
-    if verbose:
-        print (\
-'''
-Sml Summary:
-=============================================
-=============================================
-   Dataset:        %s
-   Delimiter:      %s
-   Training Set Split:       %.2f%%
-   Testing Set Split:        %.2f%%
-   Predictiors:        %s
-   Label:         %s
-   Algorithm:     %s
-=============================================
-=============================================
-''' % (filename, sep, float(train)*100, float(test)*100, predictors, label, algo))
+    if keywords.get('load'):
+        return _connect_load(keywords, verbose)
+    elif keywords.get('read'):
+        df = _connect_read(keywords, verbose)
+        return _connect_model(df, keywords)
+        return None, None, None
     else:
-        print ('Using %s Algorithm, the dataset is from: %s. Currently using Predictors from column(s) %s and Label(s) from column(s) %s. ' \
-        % (algo, filename, predictors, label) )
+        print('No READ or LOAD keyword found')
+        return None, None, None
+
+
+def _connect_load(keywords, verbose):
+    from ..python.actions.IO.load_functions import handle_load
+    model = handle_load(keywords.get('load').get('fileName'))
+    return model, None, None
+
+
+def _connect_read(keywords,verbose):
+    from ..python.actions.preprocessing.read_functions import handle_read
+    from ..python.actions.preprocessing.encode_functions import encode_categorical
+
+    readDict = keywords.get('read')
+    df = handle_read(readDict.get('fileName'), readDict.get('sep'),\
+    readDict.get('header'), readDict.get('dtypes'))
+    if keywords.get('replace'):
+        replaceDict = keywords.get('replace')
+        from ..python.actions.preprocessing.impute_functions import handle_replace
+        replaces = list()
+        replaces.append(None)
+        replaces.append(replaceDict.get('replaceIdentifier'))
+        replaces.append(replaceDict.get('replaceValue'))
+        df = handle_replace(df, replaces)
+    df = encode_categorical(df)
+    return df
+
+def _connect_model(df, keywords):
+    algoDict = keywords.get('algorithm')
+    if algoDict == None:
+        return None, None, None
+    algorithm = algoDict.get('algorithm')
+    predictors = algoDict.get('predictors')
+
+    label = algoDict.get('label')
+    splitDict = keywords.get('split')
+
+    if splitDict == None:
+        split = False
+    else:
+        split = True
+    train = keywords.get('split').get('train_split')
+    #Classification and Regression and Cluster
+    if not keywords.get('classify') and not keywords.get('regress') and not keywords.get("cluster"):
+        print("Warning: model cannot be built since CLASSIFY, REGRESS, or CLUSTER not specified")
+        return None, None, None
+
+    elif keywords.get("classify") and not keywords.get("regress") and not keywords.get("cluster"):
+        from ..python.actions.algorithms.classify_functions import handle_classify
+        mod, X_test, y_test = handle_classify(df, algorithm, predictors, label, keywords["split"], train)
+        return mod, X_test, y_test
+
+    elif not keywords.get("classify") and keywords.get("regress") and not keywords.get("cluster"):
+        from ..python.actions.algorithms.regress_functions import handle_regress
+        mod, X_test, y_test = handle_regress(df, algorithm, predictors, label, keywords["split"], train)
+        return mod, X_test, y_test
+
+    elif not keywords.get("classify") and not keywords.get("regress") and keywords.get("cluster"):
+        from ..python.actions.algorithms.cluster_functions import handle_cluster
+        clusters = 3
+        mod, X_test, y_test = handle_cluster(df, algorithm, predictors, label, clusters, keywords["split"], train)
+        return mod, X_test, y_test
+
+    else:
+        print("Error: two or more of the keywords cluster, classify, and regress are in the query")
+        return None, None, None
+
+    return None
 
 
 

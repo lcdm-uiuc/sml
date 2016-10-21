@@ -10,11 +10,7 @@ def handle_read(userfile, separator, header,types = None):
     Main exported function
     Performs logic to handle the read keyword from ML-SQL language
     """
-    print("handle read dependency check")
-    # if is_mlsql_file(userfile):
-    #     model = load_model(userfile)
-    # else:
-    #     return _read_data_file(userfile, separator, header, types)
+    return _read_data_file(userfile, separator, header, types)
 
 
 def _read_data_file(userfile, separator, header, types=None):

@@ -1,5 +1,7 @@
 from sml.parser.parser import smlparser
 from sml.sml import execute
+import sys
+import traceback
 query1 = 'READ "data/auto.csv" (separator = "\s+", header = None) AND\
  REPLACE ("?", "mode") AND SPLIT (train = .8, test = .2, validation = .0) \
  AND REGRESS (predictors = [2,3,4,5,6,7,8], label = 1, algorithm = simple)'
@@ -40,8 +42,12 @@ queries = [query1,query2,query3,query4,query5,query6,query7,query8,query9,\
 x = smlparser()
 count = 0
 for query in queries:
+    print("Query " + str(count + 1))
     try:
         execute(query)
-    except:
-        print("query " + str(count + 1) + " failed")
+    except Exception as e:
+        print("Failed")
+        traceback.print_tb(sys.exc_info()[2])
+
+
     count = count + 1

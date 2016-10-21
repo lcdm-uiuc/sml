@@ -9,24 +9,25 @@ def handle_cluster(data, algorithm, preds, label = None, clusters = 3, split = F
     """
     Performs logic to handle the CLUSTER keyword from ML-SQL language
     """
-    print("handle cluster dependency check")
-    # model = handle_cluster_algorithm(algorithm)
-    # if model is not None:
-    #     if clusters is '':
-    #         clusters = '3'
-    #     model.n_clusters = int(clusters)
-    #
-    #     #convert list of columns to integers and covert columns to start at 0
-    #     pred_cols = string_helpers.convert_ints(preds)
-    #     pred_cols = list(map(lambda x: x - 1, pred_cols))
-    #     X = data.ix[:,pred_cols]
-    #
-    #     if string_helpers.check_exists(label):
-    #         return _cluster_label(data, model, X, label, split, train)
-    #     else:
-    #         return _cluster_no_label(data, model, X, split, train)
-    # else:
-    #     return None, None, None
+    model = handle_cluster_algorithm(algorithm)
+    if model is not None:
+        if clusters is '':
+            clusters = '3'
+        model.n_clusters = int(clusters)
+
+        #convert list of columns to integers and covert columns to start at 0
+        pred_cols = list()
+        for pred in preds:
+            pred_cols.append(int(pred) - 1)
+        
+        X = data.ix[:,pred_cols]
+
+        if string_helpers.check_exists(label):
+            return _cluster_label(data, model, X, label, split, train)
+        else:
+            return _cluster_no_label(data, model, X, split, train)
+    else:
+        return None, None, None
 
 
 def _cluster_label(data, model, X, label, split, train):
