@@ -11,7 +11,7 @@ def handle_cluster(data, algorithm, preds, label = None, clusters = 3, split = F
     """
     model = handle_cluster_algorithm(algorithm)
     if model is not None:
-        if clusters is '':
+        if clusters is '' or clusters is None:
             clusters = '3'
         model.n_clusters = int(clusters)
 
@@ -19,7 +19,7 @@ def handle_cluster(data, algorithm, preds, label = None, clusters = 3, split = F
         pred_cols = list()
         for pred in preds:
             pred_cols.append(int(pred) - 1)
-        
+
         X = data.ix[:,pred_cols]
 
         if string_helpers.check_exists(label):
