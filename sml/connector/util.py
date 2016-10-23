@@ -3,10 +3,9 @@ _keywords = {
             'read':['fileName', 'header', 'sep', 'dtypes'],
             'split':['train_split','test_split'],
             'replace':['replaceColumns','replaceValue','replaceIdentifier'],
-            'algorithm': ['predictors', 'label', 'algorithm'],
-            'classify': [],
-            'regress': [],
-            'cluster': [],
+            'classify': ['predictors', 'label', 'algorithm'],
+            'regress': ['predictors', 'label', 'algorithm'],
+            'cluster': ['predictors', 'label', 'numClusters'],
             'save': ['savefile']
              }
 _listOptions = ['predictors', 'dtypes']

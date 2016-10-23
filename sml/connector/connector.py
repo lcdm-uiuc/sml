@@ -10,7 +10,6 @@ from .util import *
 
 def handle(parsing, verbose):
     keywords = keyword_check(parsing)
-    # print(keywords)
     model, X_test, y_test = _model_phase(keywords, verbose)
 
 def _model_phase(keywords, verbose=False):
@@ -54,13 +53,6 @@ def _connect_read(keywords,verbose):
     return df
 
 def _connect_model(df, keywords):
-    algoDict = keywords.get('algorithm')
-    if algoDict == None:
-        return None, None, None
-    algorithm = algoDict.get('algorithm')
-    predictors = algoDict.get('predictors')
-
-    label = algoDict.get('label')
     splitDict = keywords.get('split')
 
     if splitDict == None:
@@ -75,18 +67,31 @@ def _connect_model(df, keywords):
 
     elif keywords.get("classify") and not keywords.get("regress") and not keywords.get("cluster"):
         from ..python.actions.algorithms.classify_functions import handle_classify
-        mod, X_test, y_test = handle_classify(df, algorithm, predictors, label, keywords["split"], train)
+        algoDict = keywords.get('classify')
+        algorithm = algoDict.get('algorithm')
+        predictors = algoDict.get('predictors')
+        label = algoDict.get('label')
+
+        mod, X_test, y_test = handle_classify(df, algorithm, predictors, label, split, train)
         return mod, X_test, y_test
 
     elif not keywords.get("classify") and keywords.get("regress") and not keywords.get("cluster"):
+        algoDict = keywords.get('regress')
+        algorithm = algoDict.get('algorithm')
+        predictors = algoDict.get('predictors')
+        label = algoDict.get('label')
         from ..python.actions.algorithms.regress_functions import handle_regress
-        mod, X_test, y_test = handle_regress(df, algorithm, predictors, label, keywords["split"], train)
+        mod, X_test, y_test = handle_regress(df, algorithm, predictors, label, split, train)
         return mod, X_test, y_test
 
     elif not keywords.get("classify") and not keywords.get("regress") and keywords.get("cluster"):
         from ..python.actions.algorithms.cluster_functions import handle_cluster
-        clusters = None
-        mod, X_test, y_test = handle_cluster(df, algorithm, predictors, label, clusters, keywords["split"], train)
+        algoDict = keywords.get('cluster')
+        algorithm = algoDict.get('algorithm')
+        predictors = algoDict.get('predictors')
+        label = algoDict.get('label')
+        clusters = algoDict.get('numClusters')
+        mod, X_test, y_test = handle_cluster(df, algorithm, predictors, label, clusters, split, train)
         return mod, X_test, y_test
 
     else:
