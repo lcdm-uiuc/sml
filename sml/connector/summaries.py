@@ -1,20 +1,33 @@
-
-
-
+from .util import *
 
 def summary_read(parsingInfo, verbose=False):
     filename = parsingInfo.get('read').get('fileName')
     sep = parsingInfo.get('read').get('set')
     return None
-    
+
 def summary_msg(parsingInfo, verbose=False):
-    filename = parsingInfo.get('read').get('fileName')
-    sep = parsingInfo.get('read').get('set')
-    train = parsingInfo.get('split').get('train_split')
-    test = parsingInfo.get('split').get('test_split')
-    predictors = parsingInfo.get('algorithm').get('predictors')
-    label = parsingInfo.get('algorithm').get('label')
-    algo = parsingInfo.get('algorithm').get('algorithm')
+    if parsingInfo.get('read') is None:
+        fileName = 'None'
+        sep = 'None'
+    else:
+        filename = parsingInfo.get('read').get('fileName')
+        sep = parsingInfo.get('read').get('sep')
+    if parsingInfo.get('read') is None:
+        train = 'None'
+        test = 'None'
+    else:
+        train = parsingInfo.get('split').get('train_split')
+        test = parsingInfo.get('split').get('test_split')
+
+    algoType = get_algo(parsingInfo)
+    if parsingInfo.get(algoType) is None:
+        predictors = 'None'
+        label = 'None'
+        algo = 'None'
+    else:
+        predictors = parsingInfo.get(algoType).get('predictors')
+        label = parsingInfo.get(algoType).get('label')
+        algo = parsingInfo.get(algoType).get('algorithm')
 
     """
     Prints out detailed  summary message if verbose is True.

@@ -10,6 +10,7 @@ from .util import *
 
 def handle(parsing, verbose):
     keywords = keyword_check(parsing)
+    summary_msg(keywords, verbose)
     model, X_test, y_test = _model_phase(keywords, verbose)
 
 def _model_phase(keywords, verbose=False):
@@ -58,22 +59,21 @@ def _connect_model(df, keywords):
     else:
         split = True
     train = keywords.get('split').get('train_split')
+    algoType = get_algo(keywords)
     #Classification and Regression and Cluster
-    if not keywords.get('classify') and not keywords.get('regress') and not keywords.get("cluster"):
+    if algoType == 'none':
         print("Warning: model cannot be built since CLASSIFY, REGRESS, or CLUSTER not specified")
         return None, None, None
-
-    elif keywords.get("classify") and not keywords.get("regress") and not keywords.get("cluster"):
+    elif algoType == 'classify':
         from ..python.actions.algorithms.classify_functions import handle_classify
         algoDict = keywords.get('classify')
         algorithm = algoDict.get('algorithm')
         predictors = algoDict.get('predictors')
         label = algoDict.get('label')
-
         mod, X_test, y_test = handle_classify(df, algorithm, predictors, label, split, train)
         return mod, X_test, y_test
 
-    elif not keywords.get("classify") and keywords.get("regress") and not keywords.get("cluster"):
+    elif algoType == 'regress':
         from ..python.actions.algorithms.regress_functions import handle_regress
         algoDict = keywords.get('regress')
         algorithm = algoDict.get('algorithm')
@@ -82,7 +82,7 @@ def _connect_model(df, keywords):
         mod, X_test, y_test = handle_regress(df, algorithm, predictors, label, split, train)
         return mod, X_test, y_test
 
-    elif not keywords.get("classify") and not keywords.get("regress") and keywords.get("cluster"):
+    elif algoType == 'cluster':
         from ..python.actions.algorithms.cluster_functions import handle_cluster
         algoDict = keywords.get('cluster')
         algorithm = algoDict.get('algorithm')
@@ -95,8 +95,6 @@ def _connect_model(df, keywords):
     else:
         print("Error: two or more of the keywords cluster, classify, and regress are in the query")
         return None, None, None
-
-    return None
 
 
 

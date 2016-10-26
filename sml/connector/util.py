@@ -33,3 +33,15 @@ def keyword_check(parsing):
         else:
             keys[key] = None
     return keys
+
+def get_algo(keywords):
+    if not keywords.get('classify') and not keywords.get('regress') and not keywords.get("cluster"):
+        return "none"
+    elif keywords.get("classify") and not keywords.get("regress") and not keywords.get("cluster"):
+        return "classify"
+    elif not keywords.get("classify") and keywords.get("regress") and not keywords.get("cluster"):
+        return "regress"
+    elif not keywords.get("classify") and not keywords.get("regress") and keywords.get("cluster"):
+        return "cluster"
+    else:
+        return "multiple"
