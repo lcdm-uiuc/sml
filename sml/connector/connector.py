@@ -10,20 +10,26 @@ from .util import *
 
 def handle(parsing, verbose):
     keywords = keyword_check(parsing)
+    print(keywords)
     summary_msg(keywords, verbose)
     model, X_test, y_test = _model_phase(keywords, verbose)
+    if keywords.get('save') and model is not None:
+        from ..python.actions.IO.modelIO import save_model
+        fileName = keywords.get('save').get('savefile')
+        save_model(fileName,model)
+
+
+
 
 def _model_phase(keywords, verbose=False):
     if keywords.get('load') and keywords.get('read'):
         print('Cannot Execute both LOAD and READ on same query')
         return None, None, None
-
     if keywords.get('load'):
         return _connect_load(keywords, verbose)
     elif keywords.get('read'):
         df = _connect_read(keywords, verbose)
         return _connect_model(df, keywords)
-        return None, None, None
     else:
         print('No READ or LOAD keyword found')
         return None, None, None
@@ -60,7 +66,6 @@ def _connect_model(df, keywords):
         split = True
     train = keywords.get('split').get('train_split')
     algoType = get_algo(keywords)
-    #Classification and Regression and Cluster
     if algoType == 'none':
         print("Warning: model cannot be built since CLASSIFY, REGRESS, or CLUSTER not specified")
         return None, None, None

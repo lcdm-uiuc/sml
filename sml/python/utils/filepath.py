@@ -15,14 +15,14 @@ def get_model_type(model):
     return split_paren[0]
 
 
-def is_mlsql_file(filepath):
+def is_sml_file(filepath):
     """
     Checks if the filename extension ends with a .mlsql suffix as the file type
     @return: boolean
     """
     dotsplit = filepath.split(".")
     extension = dotsplit[-1]
-    return extension == "mlsql"
+    return extension == "sml"
 
 def file_exists(filename):
     """

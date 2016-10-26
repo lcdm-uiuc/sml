@@ -8,11 +8,11 @@ import json
 
 # Constant defining how a file is split into separate components
 SEP = ";"
-EXTENSION = ".mlsql"
+EXTENSION = ".sml"
 
 def save_model(filename, model):
     """
-    Save a model that has already been trained into a .mlsql file
+    Save a model that has already been trained into a .sml file
     The file is saved to the current working directory with the name of the file
     """
 
