@@ -37,7 +37,6 @@ def _connect_load(keywords, verbose):
 def _connect_read(keywords,verbose):
     from ..python.actions.preprocessing.read_functions import handle_read
     from ..python.actions.preprocessing.encode_functions import encode_categorical
-
     readDict = keywords.get('read')
     df = handle_read(readDict.get('fileName'), readDict.get('sep'),\
     readDict.get('header'), readDict.get('dtypes'))
@@ -54,7 +53,6 @@ def _connect_read(keywords,verbose):
 
 def _connect_model(df, keywords):
     splitDict = keywords.get('split')
-
     if splitDict == None:
         split = False
     else:
@@ -76,18 +74,20 @@ def _connect_model(df, keywords):
         return mod, X_test, y_test
 
     elif not keywords.get("classify") and keywords.get("regress") and not keywords.get("cluster"):
+        from ..python.actions.algorithms.regress_functions import handle_regress
         algoDict = keywords.get('regress')
         algorithm = algoDict.get('algorithm')
         predictors = algoDict.get('predictors')
         label = algoDict.get('label')
-        from ..python.actions.algorithms.regress_functions import handle_regress
         mod, X_test, y_test = handle_regress(df, algorithm, predictors, label, split, train)
         return mod, X_test, y_test
 
     elif not keywords.get("classify") and not keywords.get("regress") and keywords.get("cluster"):
         from ..python.actions.algorithms.cluster_functions import handle_cluster
         algoDict = keywords.get('cluster')
+        print(algoDict)
         algorithm = algoDict.get('algorithm')
+        print(algorithm)
         predictors = algoDict.get('predictors')
         label = algoDict.get('label')
         clusters = algoDict.get('numClusters')

@@ -5,7 +5,7 @@ _keywords = {
             'replace':['replaceColumns','replaceValue','replaceIdentifier'],
             'classify': ['predictors', 'label', 'algorithm'],
             'regress': ['predictors', 'label', 'algorithm'],
-            'cluster': ['predictors', 'label', 'numClusters'],
+            'cluster': ['predictors', 'label', 'numClusters','algorithm'],
             'save': ['savefile']
              }
 _listOptions = ['predictors', 'dtypes']
