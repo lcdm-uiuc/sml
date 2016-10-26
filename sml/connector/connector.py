@@ -85,9 +85,7 @@ def _connect_model(df, keywords):
     elif not keywords.get("classify") and not keywords.get("regress") and keywords.get("cluster"):
         from ..python.actions.algorithms.cluster_functions import handle_cluster
         algoDict = keywords.get('cluster')
-        print(algoDict)
         algorithm = algoDict.get('algorithm')
-        print(algorithm)
         predictors = algoDict.get('predictors')
         label = algoDict.get('label')
         clusters = algoDict.get('numClusters')
