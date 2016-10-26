@@ -21,13 +21,12 @@ def handle_classify_algorithm(algorithm):
         from sklearn.neighbors import KNeighborsClassifier
         return KNeighborsClassifier(n_neighbors=5)
     else:
-        print("Error: classification algorithm '" + algo_name + "' is not available")
         return None
 
 
 def handle_regress_algorithm(algorithm):
     algo_name = str(algorithm).lower().strip()
-    if algo_name == "simple":
+    if algo_name == "simple" or algo_name == "linearregression":
         from sklearn import linear_model
         return linear_model.LinearRegression(fit_intercept = True)
     elif algo_name == "lasso":
@@ -42,7 +41,6 @@ def handle_regress_algorithm(algorithm):
         return ElasticNet(alpha=0.1)
 
     else:
-        print("Error: regression algorithm '" + algo_name + "' is not available")
         return None
 
 
@@ -52,7 +50,6 @@ def handle_cluster_algorithm(algorithm):
         from sklearn.cluster import KMeans
         return KMeans()
     else:
-        print("Error: cluster algorithm '" + algo_name + "' is not available")
         return None
 
 
@@ -62,7 +59,7 @@ def check_all(algorithm):
     (returns the model with the first match in this order)
     """
     cl = handle_classify_algorithm(algorithm)
-    reg = handle_regression_algorithm(algorithm)
+    reg = handle_regress_algorithm(algorithm)
     clu = handle_cluster_algorithm(algorithm)
 
     if cl is not None:

@@ -48,7 +48,6 @@ def load_model(filename):
     if not file_exists(filename):
         return None
 
-
     text = None
     model = None
     with open(filename, 'r') as f:
@@ -56,7 +55,7 @@ def load_model(filename):
         text = f.readline()
 
     dictionary = json.loads(text)
+
     fit = check_all(model)
     fit.set_params(**dictionary)
-
     return fit

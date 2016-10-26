@@ -10,14 +10,15 @@ from .util import *
 
 def handle(parsing, verbose):
     keywords = keyword_check(parsing)
-    print(keywords)
-    summary_msg(keywords, verbose)
+    # summary_msg(keywords, verbose)
     model, X_test, y_test = _model_phase(keywords, verbose)
+
     if keywords.get('save') and model is not None:
         from ..python.actions.IO.modelIO import save_model
         fileName = keywords.get('save').get('savefile')
-        save_model(fileName,model)
-
+        save_model(fileName, model)
+    if X_test is not None and y_test is not None:
+        print("Classify stage on self")
 
 
 
@@ -29,7 +30,7 @@ def _model_phase(keywords, verbose=False):
         return _connect_load(keywords, verbose)
     elif keywords.get('read'):
         df = _connect_read(keywords, verbose)
-        return _connect_model(df, keywords)
+        return _connect_model(df, keywords, verbose)
     else:
         print('No READ or LOAD keyword found')
         return None, None, None
@@ -37,7 +38,7 @@ def _model_phase(keywords, verbose=False):
 
 def _connect_load(keywords, verbose):
     from ..python.actions.IO.load_functions import handle_load
-    model = handle_load(keywords.get('load').get('fileName'))
+    model = handle_load(keywords.get('load').get('filename'))
     return model, None, None
 
 
@@ -58,7 +59,7 @@ def _connect_read(keywords,verbose):
     df = encode_categorical(df)
     return df
 
-def _connect_model(df, keywords):
+def _connect_model(df, keywords, verbose=False):
     splitDict = keywords.get('split')
     if splitDict == None:
         split = False

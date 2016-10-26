@@ -10,6 +10,7 @@ def handle_load(filename):
 	if is_sml_file(filename):
 		print("Loading model from: '" + filename + "'")
 		model = load_model(filename)
+		return model
 	else:
 		print("Filename: '" + filename + "' does not have a .mlsql extension")
 		return None

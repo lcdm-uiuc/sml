@@ -1,5 +1,5 @@
 _keywords = {
-            'load':['fileName'],
+            'load':['filename'],
             'read':['fileName', 'header', 'sep', 'dtypes'],
             'split':['train_split','test_split'],
             'replace':['replaceColumns','replaceValue','replaceIdentifier'],
