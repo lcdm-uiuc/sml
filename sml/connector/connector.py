@@ -10,7 +10,7 @@ from .util import *
 
 def handle(parsing, verbose):
     keywords = keyword_check(parsing)
-    # summary_msg(keywords, verbose)
+    summary_msg(keywords, verbose)
     model, X_test, y_test = _model_phase(keywords, verbose)
 
     if keywords.get('save') and model is not None:
@@ -18,7 +18,8 @@ def handle(parsing, verbose):
         fileName = keywords.get('save').get('savefile')
         save_model(fileName, model)
     if X_test is not None and y_test is not None:
-        print("Classify stage on self")
+        return None
+        # print("Classify stage on self")
 
 
 

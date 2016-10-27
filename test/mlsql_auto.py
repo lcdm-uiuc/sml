@@ -6,5 +6,5 @@ query1 = 'READ "data/auto.csv" (separator = "\s+", header = None) AND\
   REGRESS (predictors = [2,3,4,5,6,7,8], label = 1, algorithm = simple) AND\
   SAVE "auto.sml"'
 
-query2 = 'LOAD auto.sml.sml'
-execute(query2, verbose=False)
+
+execute(query1, verbose=True)
