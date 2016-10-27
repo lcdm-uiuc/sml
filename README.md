@@ -45,4 +45,12 @@ Sml Summary:
 =============================================
 =============================================
 ```
+
+Otherwise a general output summary will be printed out
+```
+Using simple Algorithm, the dataset is from: data/auto.csv. Currently using Predictors from column(s) ['2', '3', '4', '5', '6', '7', '8'] and Label(s) from column(s) 1.
+```
+
 For more extensive documentation on the language, take a look at the [documentation for the parser](https://github.com/UI-DataScience/sml/tree/master/sml/parser)
+
+For a more extensive documentation on the implementation details take a look at the [SML documentation](https://github.com/UI-DataScience/sml/tree/master/sml)
