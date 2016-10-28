@@ -3,7 +3,7 @@ Performs logic to handle the read keyword from ML-SQL language
 """
 
 from ..IO.modelIO import load_model
-from ...utils.filepath import is_mlsql_file, file_exists
+from ...utils.filepath import is_sml_file, file_exists
 
 def handle_read(userfile, separator, header,types = None):
     """

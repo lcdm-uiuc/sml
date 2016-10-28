@@ -10,19 +10,28 @@ from .util import *
 
 def handle(parsing, verbose):
     keywords = keyword_check(parsing)
+    summary_msg(keywords, verbose)
     model, X_test, y_test = _model_phase(keywords, verbose)
+
+    if keywords.get('save') and model is not None:
+        from ..python.actions.IO.modelIO import save_model
+        fileName = keywords.get('save').get('savefile')
+        save_model(fileName, model)
+    if X_test is not None and y_test is not None:
+        return None
+        # print("Classify stage on self")
+
+
 
 def _model_phase(keywords, verbose=False):
     if keywords.get('load') and keywords.get('read'):
         print('Cannot Execute both LOAD and READ on same query')
         return None, None, None
-
     if keywords.get('load'):
         return _connect_load(keywords, verbose)
     elif keywords.get('read'):
         df = _connect_read(keywords, verbose)
-        return _connect_model(df, keywords)
-        return None, None, None
+        return _connect_model(df, keywords, verbose)
     else:
         print('No READ or LOAD keyword found')
         return None, None, None
@@ -30,14 +39,13 @@ def _model_phase(keywords, verbose=False):
 
 def _connect_load(keywords, verbose):
     from ..python.actions.IO.load_functions import handle_load
-    model = handle_load(keywords.get('load').get('fileName'))
+    model = handle_load(keywords.get('load').get('filename'))
     return model, None, None
 
 
 def _connect_read(keywords,verbose):
     from ..python.actions.preprocessing.read_functions import handle_read
     from ..python.actions.preprocessing.encode_functions import encode_categorical
-
     readDict = keywords.get('read')
     df = handle_read(readDict.get('fileName'), readDict.get('sep'),\
     readDict.get('header'), readDict.get('dtypes'))
@@ -52,39 +60,36 @@ def _connect_read(keywords,verbose):
     df = encode_categorical(df)
     return df
 
-def _connect_model(df, keywords):
+def _connect_model(df, keywords, verbose=False):
     splitDict = keywords.get('split')
-
     if splitDict == None:
         split = False
     else:
         split = True
     train = keywords.get('split').get('train_split')
-    #Classification and Regression and Cluster
-    if not keywords.get('classify') and not keywords.get('regress') and not keywords.get("cluster"):
+    algoType = get_algo(keywords)
+    if algoType == 'none':
         print("Warning: model cannot be built since CLASSIFY, REGRESS, or CLUSTER not specified")
         return None, None, None
-
-    elif keywords.get("classify") and not keywords.get("regress") and not keywords.get("cluster"):
+    elif algoType == 'classify':
         from ..python.actions.algorithms.classify_functions import handle_classify
         algoDict = keywords.get('classify')
         algorithm = algoDict.get('algorithm')
         predictors = algoDict.get('predictors')
         label = algoDict.get('label')
-
         mod, X_test, y_test = handle_classify(df, algorithm, predictors, label, split, train)
         return mod, X_test, y_test
 
-    elif not keywords.get("classify") and keywords.get("regress") and not keywords.get("cluster"):
+    elif algoType == 'regress':
+        from ..python.actions.algorithms.regress_functions import handle_regress
         algoDict = keywords.get('regress')
         algorithm = algoDict.get('algorithm')
         predictors = algoDict.get('predictors')
         label = algoDict.get('label')
-        from ..python.actions.algorithms.regress_functions import handle_regress
         mod, X_test, y_test = handle_regress(df, algorithm, predictors, label, split, train)
         return mod, X_test, y_test
 
-    elif not keywords.get("classify") and not keywords.get("regress") and keywords.get("cluster"):
+    elif algoType == 'cluster':
         from ..python.actions.algorithms.cluster_functions import handle_cluster
         algoDict = keywords.get('cluster')
         algorithm = algoDict.get('algorithm')
@@ -97,8 +102,6 @@ def _connect_model(df, keywords):
     else:
         print("Error: two or more of the keywords cluster, classify, and regress are in the query")
         return None, None, None
-
-    return None
 
 
 

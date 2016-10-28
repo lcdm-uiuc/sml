@@ -8,11 +8,11 @@ import json
 
 # Constant defining how a file is split into separate components
 SEP = ";"
-EXTENSION = ".mlsql"
+EXTENSION = ".sml"
 
 def save_model(filename, model):
     """
-    Save a model that has already been trained into a .mlsql file
+    Save a model that has already been trained into a .sml file
     The file is saved to the current working directory with the name of the file
     """
 
@@ -48,7 +48,6 @@ def load_model(filename):
     if not file_exists(filename):
         return None
 
-
     text = None
     model = None
     with open(filename, 'r') as f:
@@ -56,7 +55,7 @@ def load_model(filename):
         text = f.readline()
 
     dictionary = json.loads(text)
+
     fit = check_all(model)
     fit.set_params(**dictionary)
-
     return fit

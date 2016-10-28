@@ -1,11 +1,11 @@
 _keywords = {
-            'load':['fileName'],
+            'load':['filename'],
             'read':['fileName', 'header', 'sep', 'dtypes'],
             'split':['train_split','test_split'],
             'replace':['replaceColumns','replaceValue','replaceIdentifier'],
             'classify': ['predictors', 'label', 'algorithm'],
             'regress': ['predictors', 'label', 'algorithm'],
-            'cluster': ['predictors', 'label', 'numClusters'],
+            'cluster': ['predictors', 'label', 'numClusters','algorithm'],
             'save': ['savefile']
              }
 _listOptions = ['predictors', 'dtypes']
@@ -33,3 +33,15 @@ def keyword_check(parsing):
         else:
             keys[key] = None
     return keys
+
+def get_algo(keywords):
+    if not keywords.get('classify') and not keywords.get('regress') and not keywords.get("cluster"):
+        return "none"
+    elif keywords.get("classify") and not keywords.get("regress") and not keywords.get("cluster"):
+        return "classify"
+    elif not keywords.get("classify") and keywords.get("regress") and not keywords.get("cluster"):
+        return "regress"
+    elif not keywords.get("classify") and not keywords.get("regress") and keywords.get("cluster"):
+        return "cluster"
+    else:
+        return "multiple"
