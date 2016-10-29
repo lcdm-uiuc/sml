@@ -7,7 +7,7 @@ from .algorithms import handle_regress_algorithm
 
 def handle_regress(data, algorithm, preds, label, split = False, train = 1):
     """
-    Performs logic to handle the CLUSTER keyword from ML-SQL language
+    Performs logic to handle the REGRESS keyword from SML language
     """
     model = handle_regress_algorithm(algorithm)
     if model is not None:
@@ -19,12 +19,13 @@ def handle_regress(data, algorithm, preds, label, split = False, train = 1):
 
         #Convert label from a string to an int
         label_col = string_helpers.convert_int(label) - 1
+        print(label_col)
 
         X = data.ix[:,pred_cols]
         y = data.ix[:,label_col]
 
         #items to return
-        X_train, X_test, y_train, y_test = X, y, None, None
+        X_train, X_test, y_train, y_test = X, None, y, None
 
         if(split):
             train = float(train)

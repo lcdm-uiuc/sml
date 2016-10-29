@@ -7,4 +7,4 @@ query1 = 'READ "data/auto.csv" (separator = "\s+", header = None) AND\
   SAVE "auto.sml"'
 
 
-execute(query1, verbose=False)
+execute(query1, verbose=True)

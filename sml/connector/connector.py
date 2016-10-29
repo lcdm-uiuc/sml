@@ -10,7 +10,6 @@ from .util import *
 
 def handle(parsing, verbose):
     keywords = keyword_check(parsing)
-    summary_msg(keywords, verbose)
     model, X_test, y_test = _model_phase(keywords, verbose)
 
     if keywords.get('save') and model is not None:
@@ -19,7 +18,6 @@ def handle(parsing, verbose):
         save_model(fileName, model)
     if X_test is not None and y_test is not None:
         return None
-        # print("Classify stage on self")
 
 
 
@@ -62,14 +60,11 @@ def _connect_read(keywords,verbose):
 
 def _connect_model(df, keywords, verbose=False):
     splitDict = keywords.get('split')
-    if splitDict == None:
-        split = False
-    else:
-        split = True
-    train = keywords.get('split').get('train_split')
+    split = (splitDict == None)
     algoType = get_algo(keywords)
     if algoType == 'none':
-        print("Warning: model cannot be built since CLASSIFY, REGRESS, or CLUSTER not specified")
+        print("Warning: model not built since CLASSIFY, REGRESS, or CLUSTER not specified")
+        summary_read(keywords,df,verbose)
         return None, None, None
     elif algoType == 'classify':
         from ..python.actions.algorithms.classify_functions import handle_classify
@@ -77,6 +72,10 @@ def _connect_model(df, keywords, verbose=False):
         algorithm = algoDict.get('algorithm')
         predictors = algoDict.get('predictors')
         label = algoDict.get('label')
+        if split:
+            train = keywords.get('split').get('train_split')
+        else:
+            train = 1
         mod, X_test, y_test = handle_classify(df, algorithm, predictors, label, split, train)
         return mod, X_test, y_test
 
@@ -86,6 +85,11 @@ def _connect_model(df, keywords, verbose=False):
         algorithm = algoDict.get('algorithm')
         predictors = algoDict.get('predictors')
         label = algoDict.get('label')
+        if split:
+            train = keywords.get('split').get('train_split')
+        else:
+            train = 1
+
         mod, X_test, y_test = handle_regress(df, algorithm, predictors, label, split, train)
         return mod, X_test, y_test
 
@@ -96,6 +100,10 @@ def _connect_model(df, keywords, verbose=False):
         predictors = algoDict.get('predictors')
         label = algoDict.get('label')
         clusters = algoDict.get('numClusters')
+        if split:
+            train = keywords.get('split').get('train_split')
+        else:
+            train = 1
         mod, X_test, y_test = handle_cluster(df, algorithm, predictors, label, clusters, split, train)
         return mod, X_test, y_test
 

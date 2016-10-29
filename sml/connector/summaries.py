@@ -1,8 +1,28 @@
 from .util import *
 
-def summary_read(parsingInfo, verbose=False):
+def summary_read(parsingInfo,df, verbose=False):
     filename = parsingInfo.get('read').get('fileName')
-    sep = parsingInfo.get('read').get('set')
+    sep = parsingInfo.get('read').get('sep')
+    if verbose:
+        print (\
+'''
+Sml Summary:
+=============================================
+=============================================
+   Dataset:        %s
+   Delimiter:      %s
+   Dataset Preview\
+   
+   %s
+
+=============================================
+=============================================
+''' % (filename, sep, df.head() ))
+    else:
+        print ('Using %s Algorithm, the dataset is from: %s. Currently using Predictors from column(s) %s and Label(s) from column(s) %s. ' \
+        % (algo, filename, predictors, label) )
+
+
     return None
 
 def summary_msg(parsingInfo, verbose=False):
