@@ -189,7 +189,7 @@ The syntax is to specify `LOAD`  followed by the path to save the model.
 The table below contains an example of SML reading in data from various datasets, splitting the data into various training and testing sets, and performing regression over the Auto-MPG dataset with a simple linear regression. The model is saved and then reloaded. To view the tutorials for the `SAVE` & `LOAD` keywords click on the hyperlink in the Tutorial Column.  Again you can download the Auto-MPG dataset by clicking on the hyperlink in the Acknowledgement Column.
 
 Dataset | Task | Algorithm | Acknowledgement | Dataflow
---- | --- | --- | --- | ---
+:---: | :---: | :---: | :---: | :---:
 **Auto-MPG** | `READ` + `REPLACE` + `SPLIT` + `REGRESS` + `SAVE` + `LOAD` | Simple Linear Regression | [link](https://archive.ics.uci.edu/ml/datasets/Auto+MPG) | [notebook](https://github.com/UI-DataScience/sml/blob/master/dataflows/regress/autompg_LinearRegression-READ-REPLACE-SPLIT-REGRESS.ipynb)
 
 
