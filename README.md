@@ -16,7 +16,7 @@ After running this command, the SML library will be accessible anywhere on your 
 ____
 ## Simple Code Example
 
-```
+```python
 import sml
 from sml import execute
 
