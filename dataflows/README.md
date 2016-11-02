@@ -160,6 +160,8 @@ Consider the following code snippet with respect to the syntax for the `REGRESS`
 ```
 The syntax is to specify `REGRESS`  with the following enclosed in (): columns of the dataset that you want to use as features, the label that you want to predict and the algorithm that you want to use to do regression.
 
+The table below contains examples of SML reading in data from various datasets, splitting the data into various training and testing sets, and performing regression over the dataset with a specific regression algorithim. To view the tutorials for the `REGRESS` keyword click on the hyperlinks in the Tutorial Column. All of these datasets can be downloaded by clicking the hyperlinks in the Acknowledgment’s column.
+
 Dataset | Task | Algorithm | Acknowledgement | Dataflow
 :---: | :---: | :---: | :---: | :---:
 **Auto-MPG** | `READ` + `REPLACE` + `SPLIT` + `REGRESS` | Simple Linear Regression | [link](https://archive.ics.uci.edu/ml/datasets/Auto+MPG) | [notebook](https://github.com/UI-DataScience/sml/blob/master/dataflows/regress/autompg_LinearRegression-READ-REPLACE-SPLIT-REGRESS.ipynb)
@@ -169,16 +171,27 @@ ___
 
 ## Saving / Loading Models
 
-#### Saving Models
+It's possible to save models and reuse them later. To save a model in SML you use the `SAVE` keyword.
+Consider the following code snippet with respect to the syntax for the `SAVE` keyword:
+```python
+'SAVE "path/to/save/model"'
+```
+
+The syntax is to specify `SAVE` followed by the path to save the model enclosed in `""`.
+
+To use this model again you use the `LOAD` keyword. Consider the following code snippet with respect to the syntax for the `LOAD` keyword:
+```python
+'LOAD /path/to/load/model'
+```
+
+The syntax is to specify `LOAD`  followed by the path to save the model.
+
+The table below contains an example of SML reading in data from various datasets, splitting the data into various training and testing sets, and performing regression over the Auto-MPG dataset with a simple linear regression. The model is saved and then reloaded. To view the tutorials for the `SAVE` & `LOAD` keywords click on the hyperlink in the Tutorial Column.  Again you can download the Auto-MPG dataset by clicking on the hyperlink in the Acknowledgement Column.
+
 Dataset | Task | Algorithm | Acknowledgement | Dataflow
 --- | --- | --- | --- | ---
-**Chronic Kidney Disease** | READ + SPLIT + Classification + Save | Logistic Regression | [link](https://archive.ics.uci.edu/ml/datasets/Chronic_Kidney_Disease) | [notebook](http://141.142.211.177:8000/notebooks/CKD%20Logistic%20Regression/ckd.ipynb)
+**Auto-MPG** | `READ` + `REPLACE` + `SPLIT` + `REGRESS` + `SAVE` + `LOAD` | Simple Linear Regression | [link](https://archive.ics.uci.edu/ml/datasets/Auto+MPG) | [notebook](https://github.com/UI-DataScience/sml/blob/master/dataflows/regress/autompg_LinearRegression-READ-REPLACE-SPLIT-REGRESS.ipynb)
 
-
-#### Loading Models
-Dataset | Task | Algorithm | Acknowledgement | Dataflow
---- | --- | --- | --- | ---
-**U.S. Census** | LOAD + READ + SPLIT + Classification | Logistic Regression | [link](https://archive.ics.uci.edu/ml/datasets/US+Census+Data+%281990%29) | [notebook](http://141.142.211.177:8000/notebooks/Census%20Logistic%20Regression%20Classification/Census.ipynb)
 
 
 ___
