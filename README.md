@@ -58,3 +58,5 @@ For detailed tutorials on the language, take a look at the [SML tutorials](https
 For more extensive documentation on the language, take a look at the [documentation for the parser](https://github.com/UI-DataScience/sml/tree/master/sml/parser)
 
 For a more extensive documentation on the implementation details take a look at the [SML documentation](https://github.com/UI-DataScience/sml/tree/master/sml)
+
+For more extensive examples take a look at the [Dataflows Directory](https://github.com/UI-DataScience/sml/tree/master/dataflows)
