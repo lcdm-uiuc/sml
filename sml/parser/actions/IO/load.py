@@ -7,7 +7,7 @@ from pyparsing import Keyword, Word
 from ...util.grammar import *
 
 def define_load():
-    filename = Word(everything).setResultsName("filename")
+    filename = Word(everything).setResultsName("fileName")
 
     #define so that there can be multiple verisions of LOAD
     loadKeyword = Keyword("load", caseless = True).setResultsName("load")

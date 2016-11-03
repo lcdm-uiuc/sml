@@ -4,6 +4,8 @@ from .algorithms.cluster import define_cluster
 from .preprocessing.read import define_read
 from .preprocessing.split import define_split
 from .preprocessing.replace import define_replace
+from .apply import define_apply
+
 from .IO.load import define_load
 from .IO.save import define_save
 from ..util.grammar import *
@@ -24,6 +26,6 @@ def _define_action():
     replace= define_replace()
     load = define_load()
     save = define_save()
-    action = MatchFirst([classify, regress,cluster, read, split, replace, \
-    load, save])
+    applyAction = define_apply()
+    action = classify ^ regress ^cluster ^ read ^split^ replace ^ load ^save ^ applyAction
     return action

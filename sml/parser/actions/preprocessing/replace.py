@@ -20,9 +20,10 @@ def define_replace():
     #single group for column replace
     single_replacement = openParen + replace_cols + ocomma + replace_missing + ocomma + replacements + closeParen
     group_replacements = delimitedList(single_replacement)
-
+    missingValKeyword = (CaselessLiteral('missing') + Literal('=')).suppress()
+    strategyKeyword = (CaselessLiteral('strategy') + Literal('=')).suppress()
     #temporary for a single demo (please remove later)
-    temp_replacement = openParen + replace_missing + ocomma + replacements + closeParen
+    temp_replacement = openParen + missingValKeyword + replace_missing + ocomma + strategyKeyword + replacements + closeParen
 
     #putting it all together to create replacement
     replace = replaceKeyword + temp_replacement
