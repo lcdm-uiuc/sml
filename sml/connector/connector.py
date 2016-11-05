@@ -10,14 +10,12 @@ from .util import *
 
 def handle(parsing, verbose):
     keywords = keyword_check(parsing)
+    # print(keywords)
     model, X_test, y_test = _model_phase(keywords, verbose)
+    result = _apply_phase(keywords, model, X_test, y_test)
 
-    if keywords.get('save') and model is not None:
-        from ..python.actions.IO.modelIO import save_model
-        fileName = keywords.get('save').get('savefile')
-        save_model(fileName, model)
-    if X_test is not None and y_test is not None:
-        return None
+
+
 
 
 
@@ -29,7 +27,12 @@ def _model_phase(keywords, verbose=False):
         return _connect_load(keywords, verbose)
     elif keywords.get('read'):
         df = _connect_read(keywords, verbose)
-        return _connect_model(df, keywords, verbose)
+        model,X_test,y_test = _connect_model(df, keywords, verbose)
+        if keywords.get('save') and model is not None:
+            from ..python.actions.IO.modelIO import save_model
+            fileName = keywords.get('save').get('savefile')
+            save_model(fileName, model)
+        return model, X_test, y_test
     else:
         print('No READ or LOAD keyword found')
         return None, None, None
@@ -60,7 +63,7 @@ def _connect_read(keywords,verbose):
 
 def _connect_model(df, keywords, verbose=False):
     splitDict = keywords.get('split')
-    split = (splitDict == None)
+    split = not (splitDict == None)
     algoType = get_algo(keywords)
     if algoType == 'none':
         print("Warning: model not built since CLASSIFY, REGRESS, or CLUSTER not specified")
@@ -89,7 +92,6 @@ def _connect_model(df, keywords, verbose=False):
             train = keywords.get('split').get('train_split')
         else:
             train = 1
-
         mod, X_test, y_test = handle_regress(df, algorithm, predictors, label, split, train)
         return mod, X_test, y_test
 
@@ -113,89 +115,21 @@ def _connect_model(df, keywords, verbose=False):
 
 
 
-# def _model_phase(keywords, filename, header, sep, train, predictors, label, algorithm, replace = None, clusters = None, verbose=False, types=None):
-#     """
-#     Model phase of ML-SQL used to create a model
-#     Uses ML-SQL keywords: READ, REPLACE, SPLIT, CLASSIFY, REGRESSION
-#     """
-#     #load keyword
-#     if keywords["load"]:
-#         from .keywords.load_functions import handle_load
-#         model = handle_load(filename)
-#         return model, None, None
-#     #read file
-#     df = None
-#     if keywords["read"]:
-#         from .keywords.read_functions import handle_read
-#         if keywords['dtypes']:
-#             df = handle_read(filename, sep, header, types)
-#         else:
-#             df = handle_read(filename, sep, header)
-#
-#         if df is not None and verbose is True:
-#             #Data was read in properly
-#
-#             print(\
-# """
-# Header of Dataset (%s):
-# =============================================
-# =============================================
-# %s
-# =============================================
-# =============================================""" % (filename, df.head()) )
-#     #Replace
-#     if keywords["replace"]:
-#         from .keywords.replace_functions import handle_replace
-#         df = handle_replace(df, [replace])
-#
-#
-#         if df is not None and verbose is True:
-#             #Data was read in properly
-#             print(\
-# """
-# Updated Dataset (%s):
-# =============================================
-# =============================================
-#         %s
-# =============================================
-# =============================================""" % (filename, df.head()) )
-#     # Encode all categorical values
-#     df = encode_categorical(df)
-#     #Classification and Regression and Cluster
-#     if not keywords["classify"] and not keywords["regress"] and not keywords["cluster"]:
-#         # KI: Rationale behind changining Error to Warning is that the user may
-#         # Want to just read data...
-#         print("Warning: model cannot be built since CLASSIFY, REGRESS, or CLUSTER not specified")
-#         return None, None, None
-#
-#     elif keywords["classify"] and not keywords["regress"] and not keywords["cluster"]:
-#         from .keywords.classify_functions import handle_classify
-#         mod, X_test, y_test = handle_classify(df, algorithm, predictors, label, keywords["split"], train)
-#         return mod, X_test, y_test
-#
-#     elif not keywords["classify"] and keywords["regress"] and not keywords["cluster"]:
-#         from .keywords.regress_functions import handle_regress
-#         mod, X_test, y_test = handle_regress(df, algorithm, predictors, label, keywords["split"], train)
-#         return mod, X_test, y_test
-#
-#     elif not keywords["classify"] and not keywords["regress"] and keywords["cluster"]:
-#         from .keywords.cluster_functions import handle_cluster
-#         mod, X_test, y_test = handle_cluster(df, algorithm, predictors, label, clusters, keywords["split"], train)
-#         return mod, X_test, y_test
-#
-#     else:
-#         print("Error: two or more of the keywords cluster, classify, and regress are in the query")
-#         return None, None, None
-#
-#
-# def _apply_phase(keywords):
-#     """
-#     Apply phase of ML-SQL used to label new data with the trained model
-#     Uses ML-SQL keywords: SPLIT, APPLY
-#     """
-#     #classify = handle_classify(data, algo, predictors, label)
-#     pass
-#
+
+def _apply_phase(keywords, model, X_test, y_test):
+    """
+    Apply phase of SML used to label new data with the trained model
+    Uses SML keywords: SPLIT, APPLY
+    """
+    if keywords.get('split'):
+        results = model.score(X_test, y_test)
+        return(results)
+
+
+
+    #classify = handle_classify(data, algo, predictors, label)
+    pass
+
 #
 # def _metrics_phase(model, X_test, y_test):
 #     """

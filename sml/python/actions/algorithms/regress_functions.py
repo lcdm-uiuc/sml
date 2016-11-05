@@ -19,7 +19,6 @@ def handle_regress(data, algorithm, preds, label, split = False, train = 1):
 
         #Convert label from a string to an int
         label_col = string_helpers.convert_int(label) - 1
-        print(label_col)
 
         X = data.ix[:,pred_cols]
         y = data.ix[:,label_col]

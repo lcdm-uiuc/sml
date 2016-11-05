@@ -1,12 +1,13 @@
 _keywords = {
-            'load':['filename'],
+            'load':['fileName'],
             'read':['fileName', 'header', 'sep', 'dtypes'],
             'split':['train_split','test_split'],
             'replace':['replaceColumns','replaceValue','replaceIdentifier'],
             'classify': ['predictors', 'label', 'algorithm'],
             'regress': ['predictors', 'label', 'algorithm'],
             'cluster': ['predictors', 'label', 'numClusters','algorithm'],
-            'save': ['savefile']
+            'save': ['savefile'],
+            'apply':['applyFileName']
              }
 _listOptions = ['predictors', 'dtypes']
 
