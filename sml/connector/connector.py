@@ -21,8 +21,11 @@ def handle(parsing, verbose):
 
 def _model_phase(keywords, verbose=False):
     if keywords.get('load') and keywords.get('read'):
+
+        # KI: Why?? They should load the model params and then use it for new data...
         print('Cannot Execute both LOAD and READ on same query')
         return None, None, None
+
     if keywords.get('load'):
         return _connect_load(keywords, verbose)
     elif keywords.get('read'):
@@ -67,7 +70,7 @@ def _connect_model(df, keywords, verbose=False):
     algoType = get_algo(keywords)
     if algoType == 'none':
         print("Warning: model not built since CLASSIFY, REGRESS, or CLUSTER not specified")
-        summary_read(keywords,df,verbose)
+        summary_msg(keywords, df, verbose)
         return None, None, None
     elif algoType == 'classify':
         from ..python.actions.algorithms.classify_functions import handle_classify
