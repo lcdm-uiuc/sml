@@ -36,8 +36,11 @@ query10 = 'READ "data/wine.csv" (separator = ";", header = 0) AND \
 SPLIT (train = .8, test = 0.2) AND CLASSIFY (predictors = [1,2,3,4,5,6,7,8,9,\
 10,11], label = 12, algorithm = knn)'
 
+# Queries from Use-cases
+query11 = 'READ "data/auto.csv" (separator = "\s+", header = None)'
+
 queries = [query1,query2,query3,query4,query5,query6,query7,query8,query9,\
-            query10]
+            query10, query11]
 
 x = smlparser()
 count = 0
