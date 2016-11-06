@@ -45,9 +45,9 @@ def summary_msg(parsingInfo, df, verbose=False):
         sep = parsingInfo.get('read').get('sep')
 
         if parsingInfo.get('split') is not None:  # Since something was read in, it can be split
-          train = parsingInfo.get('split').get('train_split')
+          train = float(parsingInfo.get('split').get('train_split')) * 100
           train = "%.2f%%" % train
-          test = parsingInfo.get('split').get('test_split')
+          test = float(parsingInfo.get('split').get('test_split')) * 100
           test = "%.2f%%" % test
 
     algoType = get_algo(parsingInfo)
@@ -77,6 +77,7 @@ Sml Summary:
    Algorithm:     %s
    Dataset Preview:
 %s
+
 =============================================
 =============================================
 ''' % (filename, sep, train, test, predictors, label, algo, df.head()))
