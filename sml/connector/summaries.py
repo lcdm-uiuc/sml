@@ -25,26 +25,35 @@ Sml Summary:
 
     return None
 
-def summary_msg(parsingInfo, verbose=False):
-    if parsingInfo.get('read') is None:
-        fileName = 'None'
-        sep = 'None'
-    else:
+def summary_msg(parsingInfo, df, verbose=False):
+    # Read keywords
+    fileName = 'None'
+    sep = 'None'
+
+    # Split Keywords
+    train = 'None'
+    test = 'None'
+
+    # Algorithm keywords
+    predictors = 'None'
+    label = 'None'
+    algo = 'None'
+
+    if parsingInfo.get('read') is not None:  
+
         filename = parsingInfo.get('read').get('fileName')
         sep = parsingInfo.get('read').get('sep')
-    if parsingInfo.get('read') is None:
-        train = 'None'
-        test = 'None'
-    else:
-        train = parsingInfo.get('split').get('train_split')
-        test = parsingInfo.get('split').get('test_split')
+
+        if parsingInfo.get('split') is not None:  # Since something was read in, it can be split
+          train = parsingInfo.get('split').get('train_split')
+          train = "%.2f%%" % train
+          test = parsingInfo.get('split').get('test_split')
+          test = "%.2f%%" % test
 
     algoType = get_algo(parsingInfo)
-    if parsingInfo.get(algoType) is None:
-        predictors = 'None'
-        label = 'None'
-        algo = 'None'
-    else:
+
+    if parsingInfo.get(algoType) is not None:
+
         predictors = parsingInfo.get(algoType).get('predictors')
         label = parsingInfo.get(algoType).get('label')
         algo = parsingInfo.get(algoType).get('algorithm')
@@ -61,14 +70,16 @@ Sml Summary:
 =============================================
    Dataset:        %s
    Delimiter:      %s
-   Training Set Split:       %.2f%%
-   Testing Set Split:        %.2f%%
+   Training Set Split:       %s
+   Testing Set Split:        %s
    Predictiors:        %s
    Label:         %s
    Algorithm:     %s
+   Dataset Preview:
+%s
 =============================================
 =============================================
-''' % (filename, sep, float(train)*100, float(test)*100, predictors, label, algo))
+''' % (filename, sep, train, test, predictors, label, algo, df.head()))
     else:
         print ('Using %s Algorithm, the dataset is from: %s. Currently using Predictors from column(s) %s and Label(s) from column(s) %s. ' \
         % (algo, filename, predictors, label) )
