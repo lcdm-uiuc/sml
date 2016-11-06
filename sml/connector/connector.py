@@ -12,7 +12,9 @@ def handle(parsing, verbose):
     keywords = keyword_check(parsing)
     # print(keywords)
     model, X_test, y_test = _model_phase(keywords, verbose)
-    result = _apply_phase(keywords, model, X_test, y_test)
+
+    if model is not None:  # If model isn't created no need to run through apply phase
+        result = _apply_phase(keywords, model, X_test, y_test)
 
 
 
