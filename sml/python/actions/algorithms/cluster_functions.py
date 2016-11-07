@@ -47,7 +47,8 @@ def _cluster_label(data, model, X, label, split, train):
 
     #Train model
     model.fit(X_train, y_train)
-    return model, X_test, y_test
+    # KI: Need to return training data to generate Learning curves and other metrics
+    return model, X_train, y_train, X_test, y_test
 
 
 def _cluster_no_label(data, model, X, split, train):
@@ -63,4 +64,4 @@ def _cluster_no_label(data, model, X, split, train):
 
     #Train model
     model.fit(X_train)
-    return model, X_test, None
+    return model, X_train, X_test, None, None
