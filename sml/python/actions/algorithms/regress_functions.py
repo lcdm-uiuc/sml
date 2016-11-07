@@ -31,7 +31,8 @@ def handle_regress(data, algorithm, preds, label, split = False, train = 1):
             X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=train, test_size=(1-train))
         #Train model
         model.fit(X_train, y_train)
+        # KI: Need to training data as well for learning curves and other general methods
 
-        return model, X_test, y_test
+        return model, X_train, y_train, X_test, y_test
     else:
         return None
