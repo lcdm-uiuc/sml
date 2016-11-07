@@ -32,6 +32,7 @@ def handle_classify(data, algorithm, preds, label, split = False, train = 1):
 
         #Train model
         model.fit(X_train, y_train)
-        return model, X_test, y_test
+        # KI: Need Training data to generate learning curves and other visual methods
+        return model, X_train, y_train, X_test, y_test
     else:
         return None
