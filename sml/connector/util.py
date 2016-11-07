@@ -8,6 +8,7 @@ _keywords = {
             'cluster': ['predictors', 'label', 'numClusters','algorithm'],
             'save': ['savefile'],
             'apply':['applyFileName']
+            'plot':['plot_model_type', 'plot_type_values']
              }
 _listOptions = ['predictors', 'dtypes']
 
