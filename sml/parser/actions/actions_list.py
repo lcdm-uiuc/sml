@@ -8,6 +8,9 @@ from .apply import define_apply
 
 from .IO.load import define_load
 from .IO.save import define_save
+
+from .visualize.plot import define_plot
+
 from ..util.grammar import *
 from ..util._constants import *
 from pyparsing import *
@@ -27,5 +30,6 @@ def _define_action():
     load = define_load()
     save = define_save()
     applyAction = define_apply()
-    action = classify ^ regress ^cluster ^ read ^split^ replace ^ load ^save ^ applyAction
+    plot = define_plot()
+    action = classify ^ regress ^cluster ^ read ^split^ replace ^ load ^ save ^ plot ^ applyAction
     return action
