@@ -11,14 +11,15 @@ from .util import *
 
 def handle(parsing, verbose):
     keywords = keyword_check(parsing)
-    
+    print(keywords)
+
     model, df, X_train, y_train, X_test, y_test, algoType = _model_phase(keywords, verbose)
 
     if model is not None:  # If model isn't created no need to run through apply phase
         result = _apply_phase(keywords, model, X_test, y_test)
 
-    if keywords.get('plot'):  # Just for now plot is the only thing that needs to be specified
-        _metrics_phase(keywords, model, df, X_train, y_train, X_test, y_test)
+    # if keywords.get('plot'):  # Just for now plot is the only thing that needs to be specified
+        # _metrics_phase(keywords, model, df, X_train, y_train, X_test, y_test)
 
 
 
@@ -26,6 +27,8 @@ def _model_phase(keywords, verbose=False):
     if keywords.get('load') and keywords.get('read'):
 
         # KI: Why?? They should load the model params and then use it for new data...
+        # MH: Not sure when this comment was made, but it was mentioned when we met on Wednesday that READ is used for building models and APPLY is used for using a model for new data
+
         print('Cannot Execute both LOAD and READ on same query')
         return None, None, None, None, None, None, None
 
@@ -33,7 +36,7 @@ def _model_phase(keywords, verbose=False):
         return _connect_load(keywords, verbose)
     elif keywords.get('read'):
         df = _connect_read(keywords, verbose)
-        model,X_test,y_test, algoType = _connect_model(df, keywords, verbose)
+        model,X_train, y_train, X_test,y_test, algoType = _connect_model(df, keywords, verbose)
         if keywords.get('save') and model is not None:
             from ..python.actions.IO.modelIO import save_model
             fileName = keywords.get('save').get('savefile')
@@ -131,6 +134,9 @@ def _apply_phase(keywords, model, X_test, y_test):
     if keywords.get('split'):
         results = model.score(X_test, y_test)
         return(results)
+    if keywords.get('apply'):
+        applyFile =  keywords.get('apply').get('applyFileName')
+        print(applyFile)
 
 
 
@@ -143,13 +149,13 @@ def _metrics_phase(keywords, model, df, X_train, y_train, X_test, y_test):
     plot_types = []
     if keywords.get('plot'):
         from ..python.actions.metrics.visualize import handle_plots
-        
-        if model is None:  # Only Lattice Plot available 
+
+        if model is None:  # Only Lattice Plot available
             if keyword.get('plot_type_values').lower() == 'auto' or keyword.get('plot_type_values').lower() == 'lattice':
                 plot_types.append('lattice')
 
         else:  # More Options available to user with model
-            if keywords.get('plot').get('plot_model_type').lower() == 'auto'# and algoType is not None: # Selected AUTO
+            if keywords.get('plot').get('plot_model_type').lower() == 'auto':# and algoType is not None: # Selected AUTO
                 if algoType == 'classify':
                     plot_types.extend(['lattice','ROC', 'learnCurves', 'validationCurves'])
                 elif algoType == 'regress':
