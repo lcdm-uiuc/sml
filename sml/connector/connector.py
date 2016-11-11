@@ -12,8 +12,8 @@ from .util import *
 def handle(parsing, verbose):
     keywords = keyword_check(parsing)
     print(keywords)
-
     model, df, X_train, y_train, X_test, y_test, algoType = _model_phase(keywords, verbose)
+
 
     if model is not None:  # If model isn't created no need to run through apply phase
         result = _apply_phase(keywords, model, X_test, y_test)

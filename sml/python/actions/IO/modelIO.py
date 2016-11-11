@@ -5,6 +5,8 @@ Handles persisting models by saving and loading them into files
 from ...utils.filepath import get_model_type, get_relative_filename, file_exists
 from ..algorithms.algorithms import check_all
 import json
+from collections import OrderedDict,namedtuple
+import numpy as np
 
 # Constant defining how a file is split into separate components
 SEP = ";"
@@ -35,9 +37,13 @@ def save_model(filename, model):
         #get relevant features
         name = get_model_type(model)
         params = json.dumps(model.get_params())
+        attr = json.dumps(serialize(model.__dict__))
+
+
 
         f.write(name + "\n")
         f.write(params)
+        f.write(attr)
 
 
 def load_model(filename):
@@ -59,3 +65,36 @@ def load_model(filename):
     fit = check_all(model)
     fit.set_params(**dictionary)
     return fit
+def isnamedtuple(obj):
+    """Heuristic check if an object is a namedtuple."""
+    return isinstance(obj, tuple) \
+           and hasattr(obj, "_fields") \
+           and hasattr(obj, "_asdict") \
+           and callable(obj._asdict)
+
+def serialize(data):
+    if data is None or isinstance(data, (bool, int, float, str)):
+        return data
+    if isinstance(data, list):
+        return [serialize(val) for val in data]
+    if isinstance(data, OrderedDict):
+        return {"py/collections.OrderedDict":
+                [[serialize(k), serialize(v)] for k, v in data.items()]}
+    if isnamedtuple(data):
+        return {"py/collections.namedtuple": {
+            "type":   type(data).__name__,
+            "fields": list(data._fields),
+            "values": [serialize(getattr(data, f)) for f in data._fields]}}
+    if isinstance(data, dict):
+        if all(isinstance(k, str) for k in data):
+            return {k: serialize(v) for k, v in data.items()}
+        return {"py/dict": [[serialize(k), serialize(v)] for k, v in data.items()]}
+    if isinstance(data, tuple):
+        return {"py/tuple": [serialize(val) for val in data]}
+    if isinstance(data, set):
+        return {"py/set": [serialize(val) for val in data]}
+    if isinstance(data, np.ndarray):
+        return {"py/numpy.ndarray": {
+            "values": data.tolist(),
+            "dtype":  str(data.dtype)}}
+    raise TypeError("Type %s not data-serializable" % type(data))
