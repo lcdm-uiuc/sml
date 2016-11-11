@@ -37,9 +37,7 @@ def save_model(filename, model):
         #get relevant features
         name = get_model_type(model)
         params = json.dumps(model.get_params())
-        attr = json.dumps(serialize(model.__dict__))
-
-
+        attr = data_to_json(model.__dict__)
 
         f.write(name + "\n")
         f.write(params)
@@ -65,6 +63,12 @@ def load_model(filename):
     fit = check_all(model)
     fit.set_params(**dictionary)
     return fit
+
+""""
+Helper functions to serialize model into JSON string
+Taken from: http://robotfantastic.org/serializing-python-data-to-json-some-edge-cases.html
+
+""""
 def isnamedtuple(obj):
     """Heuristic check if an object is a namedtuple."""
     return isinstance(obj, tuple) \
@@ -98,3 +102,26 @@ def serialize(data):
             "values": data.tolist(),
             "dtype":  str(data.dtype)}}
     raise TypeError("Type %s not data-serializable" % type(data))
+
+def restore(dct):
+    if "py/dict" in dct:
+        return dict(dct["py/dict"])
+    if "py/tuple" in dct:
+        return tuple(dct["py/tuple"])
+    if "py/set" in dct:
+        return set(dct["py/set"])
+    if "py/collections.namedtuple" in dct:
+        data = dct["py/collections.namedtuple"]
+        return namedtuple(data["type"], data["fields"])(*data["values"])
+    if "py/numpy.ndarray" in dct:
+        data = dct["py/numpy.ndarray"]
+        return np.array(data["values"], dtype=data["dtype"])
+    if "py/collections.OrderedDict" in dct:
+        return OrderedDict(dct["py/collections.OrderedDict"])
+    return dct
+
+def data_to_json(data):
+    return json.dumps(serialize(data))
+
+def json_to_data(s):
+    return json.loads(s, object_hook=restore)
