@@ -68,7 +68,7 @@ def load_model(filename):
 Helper functions to serialize model into JSON string
 Taken from: http://robotfantastic.org/serializing-python-data-to-json-some-edge-cases.html
 
-""""
+"""
 def isnamedtuple(obj):
     """Heuristic check if an object is a namedtuple."""
     return isinstance(obj, tuple) \
