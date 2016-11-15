@@ -6,22 +6,16 @@ import numpy as np
 from .summaries import *
 from .util import *
 
-
-
-
 def handle(parsing, verbose):
     keywords = keyword_check(parsing)
-    print(keywords)
+    
     model, df, X_train, y_train, X_test, y_test, algoType = _model_phase(keywords, verbose)
-
 
     if model is not None:  # If model isn't created no need to run through apply phase
         result = _apply_phase(keywords, model, X_test, y_test)
 
-    # if keywords.get('plot'):  # Just for now plot is the only thing that needs to be specified
-        # _metrics_phase(keywords, model, df, X_train, y_train, X_test, y_test)
-
-
+    if keywords.get('plot'):  # for now plot is the only thing that needs to be specified
+        _metrics_phase(keywords, model, algoType, df, X_train, y_train, X_test, y_test)
 
 def _model_phase(keywords, verbose=False):
     if keywords.get('load') and keywords.get('read'):
@@ -144,8 +138,9 @@ def _apply_phase(keywords, model, X_test, y_test):
     pass
 
 
-def _metrics_phase(keywords, model, df, X_train, y_train, X_test, y_test):
+def _metrics_phase(keywords, model, algoType, df, X_train, y_train, X_test, y_test):
     # PLOT Keyword
+
     plot_types = []
     if keywords.get('plot'):
         from ..python.actions.metrics.visualize import handle_plots
@@ -163,7 +158,7 @@ def _metrics_phase(keywords, model, df, X_train, y_train, X_test, y_test):
                 elif algoType == 'cluster':
                     plot_types.extend(['lattice', 'learnCurves', 'validationCurves'])
 
-        handle_plots(plot_types, keywords, model, df, X_train, y_train, X_test, y_test)
+        handle_plots(plot_types, keywords, algoType, model, df, X_train, y_train, X_test, y_test)
 
 #     """
 #     Metrics phase of ML-SQL used to calculate or plot results
