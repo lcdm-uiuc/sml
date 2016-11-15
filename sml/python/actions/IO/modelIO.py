@@ -36,7 +36,7 @@ def save_model(filename, model):
     with open(relative_file, 'w') as f:
         #get relevant features
         name = get_model_type(model)
-        params = json.dumps(model.get_params())
+        params = json.dumps(model.get_params(deep=True))
         attr = data_to_json(model.__dict__)
 
         f.write(name + "\n")
