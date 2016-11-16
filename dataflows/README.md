@@ -5,16 +5,16 @@ This page contains everything needed to start using SML.
 
 ### Contents
 
-- Introductory Material
-- Reading in Data
-- Seperating Keywords
-- Cleaning Up Data
-- Partitioning Datasets
-- Using Classification Alogorithms
-- Using Clustering Algorithms
-- Using Regression Algorithms
-- Saving / Loading Models
-- Plotting Datasets and Metrics of Algorithms
+- [Introductory Material](https://github.com/UI-DataScience/sml/tree/master/dataflows#introductory-material)
+- [Reading in Data](https://github.com/UI-DataScience/sml/tree/master/dataflows#reading-in-data)
+- [Seperating Keywords](https://github.com/UI-DataScience/sml/tree/master/dataflows#seperating-keywords)
+- [Cleaning Up Data](https://github.com/UI-DataScience/sml/tree/master/dataflows#cleaning-up-data)
+- [Partitioning Datasets](https://github.com/UI-DataScience/sml/tree/master/dataflows#partitioning-datasets)
+- [Using Classification Alogorithms](https://github.com/UI-DataScience/sml/tree/master/dataflows#using-classification-alogorithms)
+- [Using Clustering Algorithms]()
+- [Using Regression Algorithms](https://github.com/UI-DataScience/sml/tree/master/dataflows#using-regression-algorithms)
+- [Saving / Loading Models](https://github.com/UI-DataScience/sml/tree/master/dataflows#saving--loading-models)
+- [Plotting Datasets and Metrics](https://github.com/UI-DataScience/sml/tree/master/dataflows#plotting-datasets-and-metrics-of-algorithms)
 
 ___
 ### Introductory Material
