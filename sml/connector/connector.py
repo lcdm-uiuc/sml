@@ -150,7 +150,7 @@ def _metrics_phase(keywords, model, algoType, df, X_train, y_train, X_test, y_te
         else:  # More Options available to user with model
             if keywords.get('plot').get('plot_model_type').lower() == 'auto':# and algoType is not None: # Selected AUTO
                 if algoType == 'classify':
-                    plot_types.extend(['lattice','ROC', 'learnCurves', 'validationCurves'])
+                    plot_types.extend(['lattice','ROC']) # 'learnCurves', 'validationCurves'
                 elif algoType == 'regress':
                     plot_types.extend(['lattice', 'learnCurves', 'validationCurves'])
                 elif algoType == 'cluster':
