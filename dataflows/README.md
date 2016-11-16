@@ -56,10 +56,10 @@ query = 'READ "/path/to/data" (separator = "\s+", header = None) AND\
 ```
 While you haven't formally been introducted  to  the  `REPLACE`, `SPLIT`, and `REGRESS` keywords yet, this query will perform the following steps:
 
-1. Read the dataset, delimited by "\s+" with no header.
-2. Next it will replace any values of "?".
-3. Then it will split the data using a 80/20 split for training and testing respectively.
-4. Then it will perform regression using columns 2-8 of the dataset as features, and column 1 as the label. The algorithm that it will use is simple linear regression.
+- 1. Read the dataset, delimited by "\s+" with no header.
+- 2. Next it will replace any values of "?".
+- 3. Then it will split the data using a 80/20 split for training and testing respectively.
+- 4. Then it will perform regression using columns 2-8 of the dataset as features, and column 1 as the label. The algorithm that it will use is simple linear regression.
 
 Currently, it's not important to know exactly what every keyword is doing in the query however, it's important to note that each keyword is delimited by an `AND` keyword. In the subsequent sections you'll start to see the `AND` keyword used.
 ___
