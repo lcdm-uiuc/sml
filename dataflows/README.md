@@ -207,7 +207,6 @@ Here were telling SML to generate plots based on the modelType (Regression, Clas
 The table below contains examples of SML reading in data from various datasets, splitting the data into various training and testing sets, and performing some machine learning task over the dataset with a specific algorithim. To view the tutorials for the `PLOT` keyword click on the hyperlinks in the Tutorial Column. All of these datasets can be downloaded by clicking the hyperlinks in the Acknowledgment’s column.
 
 Dataset | Task | Algorithm | Acknowledgement | Tutorial
-
 --- | --- | --- | --- | ---
 **Iris** | READ + SPLIT + Classification + PLOT| SVM | [link](https://archive.ics.uci.edu/ml/datasets/Iris) | [notebook](https://github.com/UI-DataScience/sml/blob/master/dataflows/plot/iris_svm-READ-SPLIT-CLASSIFY-PLOT.ipynb)
 **Auto-MPG** | READ + SPLIT + Regression + PLOT| Simple Linear Regression | [link](https://archive.ics.uci.edu/ml/datasets/Auto+MPG) | [notebook](https://github.com/UI-DataScience/sml/blob/master/dataflows/plot/autompg_linear_regression-READ-SPLIT-REGRESS-PLOT.ipynb)
