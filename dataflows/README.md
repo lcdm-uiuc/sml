@@ -55,6 +55,7 @@ query = 'READ "/path/to/data" (separator = "\s+", header = None) AND\
   REGRESS (predictors = [2,3,4,5,6,7,8], label = 1, algorithm = simple)'
 ```
 While you haven't formally been introducted  to  the  `REPLACE`, `SPLIT`, and `REGRESS` keywords yet, this query will perform the following steps:
+
 1. Read the dataset, delimited by "\s+" with no header.
 2. Next it will replace any values of "?".
 3. Then it will split the data using a 80/20 split for training and testing respectively.
@@ -77,8 +78,8 @@ When the `REPLACE` keyword is used it requires the first value to be one that yo
 
 Dataset | Task | Acknowledgement | Dataflow
 :---: | :---: | :---: | :---:
-**Titanic** | `READ` + `REPLACE` |  [link](https://www.kaggle.com/c/titanic/data) |[notebook]()
-**Auto-MPG** | `READ` + `REPLACE` | [link](https://archive.ics.uci.edu/ml/datasets/Auto+MPG)) | [notebook]()
+**Titanic** | `READ` + `REPLACE` |  [link](https://www.kaggle.com/c/titanic/data) |[notebook](https://github.com/UI-DataScience/sml/blob/master/dataflows/replace/Titanic-REPLACE.ipynb)
+**Auto-MPG** | `READ` + `REPLACE` | [link](https://archive.ics.uci.edu/ml/datasets/Auto+MPG)) | [notebook](https://github.com/UI-DataScience/sml/blob/master/dataflows/replace/autompg-REPLACE.ipynb)
 
 ___
 ## Partitioning Datasets
