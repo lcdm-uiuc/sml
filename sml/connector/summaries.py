@@ -68,7 +68,7 @@ def summary_msg(parsingInfo, df, verbose=False):
 Sml Summary:
 =============================================
 =============================================
-   Dataset:        %s
+   Dataset Path:        %s
    Delimiter:      %s
    Training Set Split:       %s
    Testing Set Split:        %s
