@@ -3,7 +3,6 @@ import seaborn as sns
 
 def handle_plots(plot_types, keywords, algoType, model, df, X_train, y_train, X_test, y_test):
 
-	print (plot_types)
 	for plot_type in plot_types:
 		if plot_type == 'lattice':
 			plot_lattice(df, keywords)
@@ -152,10 +151,14 @@ def validationCurves(model, X_test, y_test):
 	param_range = np.arange(0, 5)
 
 	# Generating Validation Curve
+	sucess=False
 	for params in model.get_params().keys():  # KI: Doesn't seem to have an effect on validation curve will look into further
-		_param = params
-		break;
-	v_train_scores, v_test_scores = validation_curve(model, X_test, y_test, param_name=params, param_range=param_range)
+		try:
+			v_train_scores, v_test_scores = validation_curve(model, X_test, y_test, param_name=params, param_range=param_range)
+			sucess = True
+		except:
+			pass
+		if sucess: break
 
 	plt.figure()
 	plt.xlabel("Validation examples")
