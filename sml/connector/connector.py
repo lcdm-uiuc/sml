@@ -84,6 +84,7 @@ def _connect_model(df, keywords, verbose=False):
         else:
             train = 1
         mod, X_train, y_train, X_test, y_test = handle_classify(df, algorithm, predictors, label, split, train)
+        summary_msg(keywords, df, verbose)
         return mod, X_train, y_train, X_test, y_test, algoType
 
     elif algoType == 'regress':
@@ -97,6 +98,7 @@ def _connect_model(df, keywords, verbose=False):
         else:
             train = 1
         mod, X_train, y_train, X_test, y_test = handle_regress(df, algorithm, predictors, label, split, train)
+        summary_msg(keywords, df, verbose)
         return mod, X_train, y_train, X_test, y_test, algoType
 
     elif algoType == 'cluster':
@@ -111,14 +113,12 @@ def _connect_model(df, keywords, verbose=False):
         else:
             train = 1
         mod, X_train, y_train, X_test, y_test = handle_cluster(df, algorithm, predictors, label, clusters, split, train)
+        summary_msg(keywords, df, verbose)
         return mod, X_train, y_train, X_test, y_test, algoType
 
     else:
         print("Error: two or more of the keywords cluster, classify, and regress are in the query")
         return None, None, None, None, None, None
-
-
-
 
 def _apply_phase(keywords, model, X_test, y_test):
     """
@@ -131,8 +131,6 @@ def _apply_phase(keywords, model, X_test, y_test):
     if keywords.get('apply'):
         applyFile =  keywords.get('apply').get('applyFileName')
         print(applyFile)
-
-
 
     #classify = handle_classify(data, algo, predictors, label)
     pass
