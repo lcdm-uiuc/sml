@@ -156,13 +156,3 @@ def _metrics_phase(keywords, model, algoType, df, X_train, y_train, X_test, y_te
                     plot_types.extend(['lattice', 'learnCurves', 'validationCurves'])
 
         handle_plots(plot_types, keywords, algoType, model, df, X_train, y_train, X_test, y_test)
-
-#     """
-#     Metrics phase of ML-SQL used to calculate or plot results
-#     Uses ML-SQL keywords: PLOT, CALCULATE, GRAPH
-#     """
-#     #Performance on test data
-#     if X_test is not None and y_test is not None:
-#         print("Testing Accuracy: %.2f%%" % (model.score(X_test, y_test) * 100))
-#     else:
-#         return None

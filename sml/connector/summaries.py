@@ -12,7 +12,7 @@ Sml Summary:
    Dataset:        %s
    Delimiter:      %s
    Dataset Preview\
-   
+
    %s
 
 =============================================
@@ -39,7 +39,7 @@ def summary_msg(parsingInfo, df, verbose=False):
     label = 'None'
     algo = 'None'
 
-    if parsingInfo.get('read') is not None:  
+    if parsingInfo.get('read') is not None:
 
         filename = parsingInfo.get('read').get('fileName')
         sep = parsingInfo.get('read').get('sep')
