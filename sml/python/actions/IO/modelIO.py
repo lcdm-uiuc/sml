@@ -36,7 +36,7 @@ def save_model(filename, model):
     with open(relative_file, 'w') as f:
         #get relevant features
         name = get_model_type(model)
-        params = json.dumps(model.get_params())
+        params = json.dumps(model.get_params(deep=True))
         attr = data_to_json(model.__dict__)
 
         f.write(name + "\n")
@@ -68,7 +68,7 @@ def load_model(filename):
 Helper functions to serialize model into JSON string
 Taken from: http://robotfantastic.org/serializing-python-data-to-json-some-edge-cases.html
 
-""""
+"""
 def isnamedtuple(obj):
     """Heuristic check if an object is a namedtuple."""
     return isinstance(obj, tuple) \

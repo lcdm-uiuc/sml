@@ -5,16 +5,16 @@ This page contains everything needed to start using SML.
 
 ### Contents
 
-- Introductory Material
-- Reading in Data
-- Seperating Keywords
-- Cleaning Up Data
-- Partitioning Datasets
-- Using Classification Alogorithms
-- Using Clustering Algorithms
-- Using Regression Algorithms
-- Saving / Loading Models
-- Plotting Datasets and Metrics of Algorithms
+- [Introductory Material](https://github.com/UI-DataScience/sml/tree/master/dataflows#introductory-material)
+- [Reading in Data](https://github.com/UI-DataScience/sml/tree/master/dataflows#reading-in-data)
+- [Seperating Keywords](https://github.com/UI-DataScience/sml/tree/master/dataflows#seperating-keywords)
+- [Cleaning Up Data](https://github.com/UI-DataScience/sml/tree/master/dataflows#cleaning-up-data)
+- [Partitioning Datasets](https://github.com/UI-DataScience/sml/tree/master/dataflows#partitioning-datasets)
+- [Using Classification Alogorithms](https://github.com/UI-DataScience/sml/tree/master/dataflows#using-classification-alogorithms)
+- [Using Clustering Algorithms]()
+- [Using Regression Algorithms](https://github.com/UI-DataScience/sml/tree/master/dataflows#using-regression-algorithms)
+- [Saving / Loading Models](https://github.com/UI-DataScience/sml/tree/master/dataflows#saving--loading-models)
+- [Plotting Datasets and Metrics](https://github.com/UI-DataScience/sml/tree/master/dataflows#plotting-datasets-and-metrics-of-algorithms)
 
 ___
 ### Introductory Material
@@ -55,10 +55,11 @@ query = 'READ "/path/to/data" (separator = "\s+", header = None) AND\
   REGRESS (predictors = [2,3,4,5,6,7,8], label = 1, algorithm = simple)'
 ```
 While you haven't formally been introducted  to  the  `REPLACE`, `SPLIT`, and `REGRESS` keywords yet, this query will perform the following steps:
-1. Read the dataset, delimited by "\s+" with no header.
-2. Next it will replace any values of "?".
-3. Then it will split the data using a 80/20 split for training and testing respectively.
-4. Then it will perform regression using columns 2-8 of the dataset as features, and column 1 as the label. The algorithm that it will use is simple linear regression.
+
+- 1. Read the dataset, delimited by "\s+" with no header.
+- 2. Next it will replace any values of "?".
+- 3. Then it will split the data using a 80/20 split for training and testing respectively.
+- 4. Then it will perform regression using columns 2-8 of the dataset as features, and column 1 as the label. The algorithm that it will use is simple linear regression.
 
 Currently, it's not important to know exactly what every keyword is doing in the query however, it's important to note that each keyword is delimited by an `AND` keyword. In the subsequent sections you'll start to see the `AND` keyword used.
 ___
@@ -67,7 +68,7 @@ ___
 When working with datasets, values may be missing or *NaNs*, *NAs*, and other troublesome values may be present in a dataset. You can replace this values in SML by using the `REPLACE` keyword. The following example shows the syntax for the `REPLACE` keyword:
 
 ```python
-'READ "/path/to/data" (separator = ",", header = None) AND REPLACE ("NaN", "mode")'
+'READ "/path/to/data" (separator = ",", header = None) AND REPLACE (missing = "NaN",  strategy = "mode")'
 ```
 When the `REPLACE` keyword is used it requires the first value to be one that you wish to replace, followed by the metric that you want to replace the column with. In the code snippet above you read in some hypotheical dataset and then replace any value of 'NaN' with the mode of the column. Currently the following  metrics have been implemented:
 - mode
@@ -75,10 +76,10 @@ When the `REPLACE` keyword is used it requires the first value to be one that yo
 - drop column (Removes column if 1 value of the replace value is in a column)
 - minimum
 
-Dataset | Task | Acknowledgement | Dataflow
+Dataset | Task | Acknowledgement | Tutorial
 :---: | :---: | :---: | :---:
-**Titanic** | `READ` + `REPLACE` |  [link](https://www.kaggle.com/c/titanic/data) |[notebook]()
-**Auto-MPG** | `READ` + `REPLACE` | [link](https://archive.ics.uci.edu/ml/datasets/Auto+MPG)) | [notebook]()
+**Titanic** | `READ` + `REPLACE` |  [link](https://www.kaggle.com/c/titanic/data) |[notebook](https://github.com/UI-DataScience/sml/blob/master/dataflows/replace/Titanic-REPLACE.ipynb)
+**Auto-MPG** | `READ` + `REPLACE` | [link](https://archive.ics.uci.edu/ml/datasets/Auto+MPG) | [notebook](https://github.com/UI-DataScience/sml/blob/master/dataflows/replace/autompg-REPLACE.ipynb)
 
 ___
 ## Partitioning Datasets
@@ -141,7 +142,7 @@ The syntax is to specify `CLUSTER` with the following enclosed in *()*: columns 
 
 The table below contains examples of SML reading in data from various datasets, splitting the data into various training and testing sets, and performing clustering over the dataset with a clustering algorithim. To view the tutorials for the `CLUSTER` keyword click on the hyperlinks in the Tutorial Column. All of these datasets can be downloaded by clicking the hyperlinks in the Acknowledgment’s column.
 
-Dataset | Task | Algorithm | Acknowledgement | Dataflow
+Dataset | Task | Algorithm | Acknowledgement | Tutorial
 :---: | :---: | :---: | :---: | :---:
 **Seeds** | `READ` + `SPLIT` + `CLUSTER` | K-Means | [link](https://archive.ics.uci.edu/ml/datasets/seeds) | notebook
 **Wine** | `READ` + `SPLIT` + `CLUSTER` | ? | [link](https://archive.ics.uci.edu/ml/datasets/Wine) | notebook
@@ -162,7 +163,7 @@ The syntax is to specify `REGRESS`  with the following enclosed in (): columns o
 
 The table below contains examples of SML reading in data from various datasets, splitting the data into various training and testing sets, and performing regression over the dataset with a specific regression algorithim. To view the tutorials for the `REGRESS` keyword click on the hyperlinks in the Tutorial Column. All of these datasets can be downloaded by clicking the hyperlinks in the Acknowledgment’s column.
 
-Dataset | Task | Algorithm | Acknowledgement | Dataflow
+Dataset | Task | Algorithm | Acknowledgement | Tutorial
 :---: | :---: | :---: | :---: | :---:
 **Auto-MPG** | `READ` + `REPLACE` + `SPLIT` + `REGRESS` | Simple Linear Regression | [link](https://archive.ics.uci.edu/ml/datasets/Auto+MPG) | [notebook](https://github.com/UI-DataScience/sml/blob/master/dataflows/regress/autompg_LinearRegression-READ-REPLACE-SPLIT-REGRESS.ipynb)
 **Computer Hardware** | `READ` + `SPLIT` + `REGRESS` | Ridge Regression | [link](https://archive.ics.uci.edu/ml/datasets/Computer+Hardware) | [notebook](https://github.com/UI-DataScience/sml/blob/master/dataflows/regress/computer-RidgeRegression-READ-SPLIT-REGRESS.ipynb)
@@ -170,6 +171,7 @@ Dataset | Task | Algorithm | Acknowledgement | Dataflow
 ___
 
 ## Saving / Loading Models
+### (Working on LOAD in dataflow...)
 
 It's possible to save models and reuse them later. To save a model in SML you use the `SAVE` keyword.
 Consider the following code snippet with respect to the syntax for the `SAVE` keyword:
@@ -188,7 +190,7 @@ The syntax is to specify `LOAD`  followed by the path to save the model.
 
 The table below contains an example of SML reading in data from various datasets, splitting the data into various training and testing sets, and performing regression over the Auto-MPG dataset with a simple linear regression. The model is saved and then reloaded. To view the tutorials for the `SAVE` & `LOAD` keywords click on the hyperlink in the Tutorial Column.  Again you can download the Auto-MPG dataset by clicking on the hyperlink in the Acknowledgement Column.
 
-Dataset | Task | Algorithm | Acknowledgement | Dataflow
+Dataset | Task | Algorithm | Acknowledgement | Tutorial
 :---: | :---: | :---: | :---: | :---:
 **Auto-MPG** | `READ` + `REPLACE` + `SPLIT` + `REGRESS` + `SAVE` + `LOAD` | Simple Linear Regression | [link](https://archive.ics.uci.edu/ml/datasets/Auto+MPG) | [notebook](https://github.com/UI-DataScience/sml/blob/master/dataflows/regress/autompg_LinearRegression-READ-REPLACE-SPLIT-REGRESS.ipynb)
 
@@ -196,7 +198,16 @@ Dataset | Task | Algorithm | Acknowledgement | Dataflow
 
 ___
 ## Plotting Datasets and Metrics of Algorithms
-Dataset | Task | Algorithm | Acknowledgement | Dataflow
+
+When using SML it's possible to plot datasets or metrics of algorithms. The syntax to do this is `PLOT` followed by the enclosing the following in *()* The model type and the plot types. Consider the following code snippet with respect to the syntax for the `PLOT` keyword:
+```python
+'PLOT (modelType="AUTO", plotTypes="AUTO")''
+```
+Here were telling SML to generate plots based on the modelType (Regression, Classifcation, Clustering) that would provide the best information about the model and dataset.
+
+The table below contains examples of SML reading in data from various datasets, splitting the data into various training and testing sets, and performing some machine learning task over the dataset with a specific algorithim. To view the tutorials for the `PLOT` keyword click on the hyperlinks in the Tutorial Column. All of these datasets can be downloaded by clicking the hyperlinks in the Acknowledgment’s column.
+
+Dataset | Task | Algorithm | Acknowledgement | Tutorial
 --- | --- | --- | --- | ---
 **Iris** | READ + SPLIT + Classification + PLOT| SVM | [link](https://archive.ics.uci.edu/ml/datasets/Iris) | [notebook](https://github.com/UI-DataScience/sml/blob/master/dataflows/plot/iris_svm-READ-SPLIT-CLASSIFY-PLOT.ipynb)
 **Auto-MPG** | READ + SPLIT + Regression + PLOT| Simple Linear Regression | [link](https://archive.ics.uci.edu/ml/datasets/Auto+MPG) | [notebook](https://github.com/UI-DataScience/sml/blob/master/dataflows/plot/autompg_linear_regression-READ-SPLIT-REGRESS-PLOT.ipynb)

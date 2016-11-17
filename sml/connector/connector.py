@@ -6,21 +6,15 @@ import numpy as np
 from .summaries import *
 from .util import *
 
-
-
-
 def handle(parsing, verbose):
     keywords = keyword_check(parsing)
     model, df, X_train, y_train, X_test, y_test, algoType = _model_phase(keywords, verbose)
 
-
     if model is not None:  # If model isn't created no need to run through apply phase
         result = _apply_phase(keywords, model, X_test, y_test)
 
-    # if keywords.get('plot'):  # Just for now plot is the only thing that needs to be specified
-        # _metrics_phase(keywords, model, df, X_train, y_train, X_test, y_test)
-
-
+    if keywords.get('plot'):  # for now plot is the only thing that needs to be specified
+        _metrics_phase(keywords, model, algoType, df, X_train, y_train, X_test, y_test)
 
 def _model_phase(keywords, verbose=False):
     if keywords.get('load') and keywords.get('read'):
@@ -89,6 +83,7 @@ def _connect_model(df, keywords, verbose=False):
         else:
             train = 1
         mod, X_train, y_train, X_test, y_test = handle_classify(df, algorithm, predictors, label, split, train)
+        summary_msg(keywords, df, verbose)
         return mod, X_train, y_train, X_test, y_test, algoType
 
     elif algoType == 'regress':
@@ -102,6 +97,7 @@ def _connect_model(df, keywords, verbose=False):
         else:
             train = 1
         mod, X_train, y_train, X_test, y_test = handle_regress(df, algorithm, predictors, label, split, train)
+        summary_msg(keywords, df, verbose)
         return mod, X_train, y_train, X_test, y_test, algoType
 
     elif algoType == 'cluster':
@@ -116,14 +112,12 @@ def _connect_model(df, keywords, verbose=False):
         else:
             train = 1
         mod, X_train, y_train, X_test, y_test = handle_cluster(df, algorithm, predictors, label, clusters, split, train)
+        summary_msg(keywords, df, verbose)
         return mod, X_train, y_train, X_test, y_test, algoType
 
     else:
         print("Error: two or more of the keywords cluster, classify, and regress are in the query")
         return None, None, None, None, None, None
-
-
-
 
 def _apply_phase(keywords, model, X_test, y_test):
     """
@@ -137,14 +131,13 @@ def _apply_phase(keywords, model, X_test, y_test):
         applyFile =  keywords.get('apply').get('applyFileName')
         print(applyFile)
 
-
-
     #classify = handle_classify(data, algo, predictors, label)
     pass
 
 
-def _metrics_phase(keywords, model, df, X_train, y_train, X_test, y_test):
+def _metrics_phase(keywords, model, algoType, df, X_train, y_train, X_test, y_test):
     # PLOT Keyword
+
     plot_types = []
     if keywords.get('plot'):
         from ..python.actions.metrics.visualize import handle_plots
@@ -156,13 +149,13 @@ def _metrics_phase(keywords, model, df, X_train, y_train, X_test, y_test):
         else:  # More Options available to user with model
             if keywords.get('plot').get('plot_model_type').lower() == 'auto':# and algoType is not None: # Selected AUTO
                 if algoType == 'classify':
-                    plot_types.extend(['lattice','ROC', 'learnCurves', 'validationCurves'])
+                    plot_types.extend(['lattice','ROC']) # 'learnCurves', 'validationCurves'
                 elif algoType == 'regress':
                     plot_types.extend(['lattice', 'learnCurves', 'validationCurves'])
                 elif algoType == 'cluster':
                     plot_types.extend(['lattice', 'learnCurves', 'validationCurves'])
 
-        handle_plots(plot_types, keywords, model, df, X_train, y_train, X_test, y_test)
+        handle_plots(plot_types, keywords, algoType, model, df, X_train, y_train, X_test, y_test)
 
 #     """
 #     Metrics phase of ML-SQL used to calculate or plot results
