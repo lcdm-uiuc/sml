@@ -13,6 +13,11 @@ _keywords = {
 _listOptions = ['predictors', 'dtypes']
 
 def keyword_check(parsing):
+    '''
+    Maps parsed string to dictionary
+    :returns dictionary of keywords with values from Query.
+    '''
+
     keys = {}
     for key in _keywords:
         parse_check = None
@@ -37,6 +42,11 @@ def keyword_check(parsing):
     return keys
 
 def get_algo(keywords):
+    '''
+    :keywords - dictionary
+    :returns type of algorithm used.
+    '''
+
     if not keywords.get('classify') and not keywords.get('regress') and not keywords.get("cluster"):
         return "none"
     elif keywords.get("classify") and not keywords.get("regress") and not keywords.get("cluster"):
