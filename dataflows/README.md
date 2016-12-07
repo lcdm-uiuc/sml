@@ -130,7 +130,7 @@ Dataset | Task | Algorithm | Acknowledgement | Tutorial
 **U.S. Census** | `READ` + `REPLACE` + `SPLIT` + `CLASSIFY` | Logistic Regression | [link](https://archive.ics.uci.edu/ml/datasets/US+Census+Data+%281990%29) | [notebook](https://github.com/UI-DataScience/sml/blob/master/dataflows/classify/Census-READ-SPLIT-REPLACE-CLASSIFY.ipynb)
 
 ___
-## Using Clustering Algorithms (Still working on this one...)
+## Using Clustering Algorithms (Tutorials Still Under Construction)
 If you want to run clustering algorithms using SML you use the `CLUSTER` keyword. The current algorithms availiable for clustering are: 
 - K-Means Clustering
 
