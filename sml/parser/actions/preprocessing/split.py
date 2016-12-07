@@ -3,6 +3,10 @@ from ...util._constants import decimal
 from pyparsing import oneOf, Literal, Word, Optional, Combine
 
 def define_split():
+	'''
+	Definition of SPLIT Keyword
+	:returns pyparsing object
+	'''
 	#define so that there can be multiple verisions of Split
 	splitKeyword = oneOf(["Split", "SPLIT"]).setResultsName("split")
 
