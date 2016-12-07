@@ -3,6 +3,10 @@ from ...util._constants import choice_columns, column
 from pyparsing import CaselessLiteral, Literal, oneOf, Optional, Word, OneOrMore, MatchFirst, Group, delimitedList
 
 def define_replace():
+    '''
+    Definition of replace keyword
+    :returns pyparsing object
+    '''
     #define so that there can be multiple verisions of Replace
     replaceKeyword = oneOf(["Replace", "REPLACE"]).setResultsName("replace")
 
@@ -38,6 +42,7 @@ def _replace_options():
     - mean, max, min, median, mode
     - drop column
     - drop row
+    :returns list of pyparsing object
     """
     mean = CaselessLiteral("mean")
     median = CaselessLiteral("median")

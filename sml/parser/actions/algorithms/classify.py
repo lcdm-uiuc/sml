@@ -5,7 +5,11 @@ from .classify_algorithms import svm, logistic, forest, bayes, knn
 from pyparsing import Literal, oneOf, Optional, Word, OneOrMore, MatchFirst, delimitedList
 
 def define_classify():
-    #Algorithm Definitions
+    '''
+    Algorithm Definition of Classify Keyword
+    :returns pyparsing object
+    '''
+
     algoPhrase = (Literal ("algorithm") + Literal("=")).suppress()
 
     svmd = svm.define_svm()

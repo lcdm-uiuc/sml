@@ -31,8 +31,7 @@ def repl(verbose=False):
 			break
 		else:
 			result = myparser.parseString(command)
-			print(result)
-			# handle(result, verbose)
+			handle(result, verbose)
 
 if __name__ == "__main__":
 	repl()

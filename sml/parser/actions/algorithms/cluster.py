@@ -7,7 +7,11 @@ from .cluster_algorithms import kmeans
 from pyparsing import Literal, oneOf, Optional, Word, Keyword, MatchFirst, delimitedList
 
 def define_cluster():
-	#Algorithm Definitions
+    '''
+    Algorithm Definition of Cluster Keyword
+    :returns pyparsing object
+    '''
+
     algoPhrase = (Literal ("algorithm") + Literal("=")).suppress()
 
     kmeansd = kmeans.define_kmeans()
@@ -22,5 +26,4 @@ def define_cluster():
     preds = predPhrase + predictorsDef
 
     cluster = clusterKeyword + openParen + preds + ocomma + algo + closeParen
-
     return cluster

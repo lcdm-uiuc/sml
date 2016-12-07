@@ -3,6 +3,10 @@ from ...util._constants import decimal
 from pyparsing import oneOf, Literal, Word, Optional, Combine, alphas, MatchFirst, delimitedList
 
 def define_plot():
+	'''
+	Defition of PLOT Keyword
+	:returns pyparsing object
+	'''
 
 	#  Keyword for PLOT
 	plot_keyword = oneOf(["plot", "PLOT"]).setResultsName("plot")

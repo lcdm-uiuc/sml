@@ -4,6 +4,10 @@ from pyparsing import Literal, Keyword, Optional, Word, MatchFirst
 from .regression_algorithms import simple, lasso, ridge, elastic
 
 def define_regress():
+    '''
+    Algorithm Definition of Regress Keyword
+    :returns pyparsing object
+    '''
     #Algorithm keyword definitions
     algoPhrase = (Literal ("algorithm") + Literal("=")).suppress()
 

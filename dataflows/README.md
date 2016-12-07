@@ -19,7 +19,7 @@ This page contains everything needed to start using SML.
 ___
 ### Introductory Material
 
-We assumed that you have installed SML, if not please see [Instructions for Installing SML](https://github.com/UI-DataScience/sml#setup) before continuing. For the examples below we use publicly aviliable data which you can download manually nevertheless, for simplicity's sake you can navigate to this directory and run the following [python script](https://github.com/UI-DataScience/sml/tree/master/dataflows/get_data.py) to obtain the same data and begin running examples. 
+We assumed that you have installed SML, if not please see [Instructions for Installing SML](https://github.com/UI-DataScience/sml#setup) before continuing. For the examples below we use publicly aviliable data which you can download manually nevertheless, for simplicity's sake you can run the following [python script](https://github.com/UI-DataScience/sml/tree/master/dataflows/get_data.py) to obtain the same data and begin running examples. 
 
 ___
 ### Reading in Data
@@ -59,13 +59,13 @@ While you haven't formally been introducted  to  the  `REPLACE`, `SPLIT`, and `R
 - 1. Read the dataset, delimited by "\s+" with no header.
 - 2. Next it will replace any values of "?".
 - 3. Then it will split the data using a 80/20 split for training and testing respectively.
-- 4. Then it will perform regression using columns 2-8 of the dataset as features, and column 1 as the label. The algorithm that it will use is simple linear regression.
+- 4. Then it will perform regression using columns 2-8 of the dataset as features, and column 1 as the label. The algorithm that SML will use is simple linear regression.
 
 Currently, it's not important to know exactly what every keyword is doing in the query however, it's important to note that each keyword is delimited by an `AND` keyword. In the subsequent sections you'll start to see the `AND` keyword used.
 ___
 ## Cleaning Up Data
 
-When working with datasets, values may be missing or *NaNs*, *NAs*, and other troublesome values may be present in a dataset. You can replace this values in SML by using the `REPLACE` keyword. The following example shows the syntax for the `REPLACE` keyword:
+When working with datasets, values may be missing or *NaNs*, *NAs*, and other troublesome values may be present in a dataset. You can replace these values in SML by using the `REPLACE` keyword. The following example shows the syntax for the `REPLACE` keyword:
 
 ```python
 'READ "/path/to/data" (separator = ",", header = None) AND REPLACE (missing = "NaN",  strategy = "mode")'
@@ -84,7 +84,7 @@ Dataset | Task | Acknowledgement | Tutorial
 ___
 ## Partitioning Datasets
 
-For almost all situations in Machine Learning it's often useful to split a dataset into Training, Validation, and Testing sets. To split data with SML you specify the `SPLIT` keyword  The following example shows the SYNTAX for the `SPLIT`: keyword:
+For almost all situations in Machine Learning it's often useful to split a dataset into Training and Testing sets. To split data with SML you specify the `SPLIT` keyword  The following example shows the SYNTAX for the `SPLIT`: keyword:
 
 ```python
 query = 'READ "/path/to/data" (separator = ",", header = None) AND SPLIT (train = 0.8, test = 0.2)'
@@ -130,7 +130,7 @@ Dataset | Task | Algorithm | Acknowledgement | Tutorial
 **U.S. Census** | `READ` + `REPLACE` + `SPLIT` + `CLASSIFY` | Logistic Regression | [link](https://archive.ics.uci.edu/ml/datasets/US+Census+Data+%281990%29) | [notebook](https://github.com/UI-DataScience/sml/blob/master/dataflows/classify/Census-READ-SPLIT-REPLACE-CLASSIFY.ipynb)
 
 ___
-## Using Clustering Algorithms (Still working on this one...)
+## Using Clustering Algorithms (Tutorials Still Under Construction)
 If you want to run clustering algorithms using SML you use the `CLUSTER` keyword. The current algorithms availiable for clustering are: 
 - K-Means Clustering
 
@@ -209,8 +209,6 @@ The table below contains examples of SML reading in data from various datasets, 
 
 Dataset | Task | Algorithm | Acknowledgement | Tutorial
 --- | --- | --- | --- | ---
-**Iris** | READ + SPLIT + Classification + PLOT| SVM | [link](https://archive.ics.uci.edu/ml/datasets/Iris) | [notebook](https://github.com/UI-DataScience/sml/blob/master/dataflows/plot/iris_svm-READ-SPLIT-CLASSIFY-PLOT.ipynb)
-**Auto-MPG** | READ + SPLIT + Regression + PLOT| Simple Linear Regression | [link](https://archive.ics.uci.edu/ml/datasets/Auto+MPG) | [notebook](https://github.com/UI-DataScience/sml/blob/master/dataflows/plot/autompg_linear_regression-READ-SPLIT-REGRESS-PLOT.ipynb)
-**Seeds** | READ + SPLIT + Clustering + PLOT| K-Means | [link](https://archive.ics.uci.edu/ml/datasets/seeds) | [notebook](https://github.com/UI-DataScience/sml/blob/master/dataflows/plot/seeds-READ-SPLIT-CLUSTER-PLOT.ipynb)
-
-
+**Iris** | `READ` + `SPLIT` + `CLASSIFY` + `PLOT` | SVM | [link](https://archive.ics.uci.edu/ml/datasets/Iris) | [notebook](https://github.com/UI-DataScience/sml/blob/master/dataflows/plot/iris_svm-READ-SPLIT-CLASSIFY-PLOT.ipynb)
+**Auto-MPG** | `READ` + `SPLIT` + `REGRESS` + `PLOT`| Simple Linear Regression | [link](https://archive.ics.uci.edu/ml/datasets/Auto+MPG) | [notebook](https://github.com/UI-DataScience/sml/blob/master/dataflows/plot/autompg_linear_regression-READ-SPLIT-REGRESS-PLOT.ipynb)
+**Seeds** | `READ` + `SPLIT` + `CLUSTER` + `PLOT`| K-Means | [link](https://archive.ics.uci.edu/ml/datasets/seeds) | [notebook](https://github.com/UI-DataScience/sml/blob/master/dataflows/plot/seeds-READ-SPLIT-CLUSTER-PLOT.ipynb)
