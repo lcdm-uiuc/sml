@@ -47,3 +47,18 @@ def get_algo(keywords):
         return "cluster"
     else:
         return "multiple"
+
+def split_dataframe(df, preds, label):
+    pred_cols = list()
+    for pred in preds:
+        pred_cols.append(int(pred) - 1)
+    print(pred_cols)
+
+    #Convert label from a string to an int
+    label_col = int(label) - 1
+    print(label_col)
+    X = df.ix[:,pred_cols]
+    y = df.ix[:,label_col]
+
+    #items to return
+    return X, y

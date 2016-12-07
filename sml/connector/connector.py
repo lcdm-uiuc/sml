@@ -7,11 +7,13 @@ from .summaries import *
 from .util import *
 
 def handle(parsing, verbose):
+
     keywords = keyword_check(parsing)
     model, df, X_train, y_train, X_test, y_test, algoType = _model_phase(keywords, verbose)
 
     if model is not None:  # If model isn't created no need to run through apply phase
         result = _apply_phase(keywords, model, X_test, y_test)
+        # print(result)
 
     if keywords.get('plot'):  # for now plot is the only thing that needs to be specified
         _metrics_phase(keywords, model, algoType, df, X_train, y_train, X_test, y_test)
@@ -43,8 +45,8 @@ def _model_phase(keywords, verbose=False):
 
 def _connect_load(keywords, verbose):
     from ..python.actions.IO.load_functions import handle_load
-    model = handle_load(keywords.get('load').get('filename'))
-    return model, None, None, None, None, None, None, None
+    model = handle_load(keywords.get('load').get('fileName'))
+    return model, None, None, None, None, None, None
 
 
 def _connect_read(keywords,verbose):
@@ -128,16 +130,38 @@ def _apply_phase(keywords, model, X_test, y_test):
         results = model.score(X_test, y_test)
         return(results)
     if keywords.get('apply'):
+        from ..python.actions.preprocessing.read_functions import handle_read
+        from ..python.actions.preprocessing.encode_functions import encode_categorical
         applyFile =  keywords.get('apply').get('applyFileName')
-        print(applyFile)
+        readDict = keywords.get('read')
+        # Assumption that testing file is in the same format as the original training file
+        df = handle_read(applyFile, readDict.get('sep'),\
+        readDict.get('header'), readDict.get('dtypes'))
+        if keywords.get('replace'):
+            replaceDict = keywords.get('replace')
+            from ..python.actions.preprocessing.impute_functions import handle_replace
+            replaces = list()
+            replaces.append(None)
+            replaces.append(replaceDict.get('replaceIdentifier'))
+            replaces.append(replaceDict.get('replaceValue'))
+            df = handle_replace(df, replaces)
+        df = encode_categorical(df)
 
-    #classify = handle_classify(data, algo, predictors, label)
+        algoDict = keywords.get('classify')
+        predictors = algoDict.get('predictors')
+        label = algoDict.get('label')
+        X_test,y_test = split_dataframe(df, predictors, label)
+        results = model.score(X_test, y_test)
+        return(results)
+
+    else:
+        print("No apply phase")
+        return(None)
     pass
 
 
 def _metrics_phase(keywords, model, algoType, df, X_train, y_train, X_test, y_test):
     # PLOT Keyword
-
     plot_types = []
     if keywords.get('plot'):
         from ..python.actions.metrics.visualize import handle_plots
