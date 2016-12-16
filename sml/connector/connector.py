@@ -7,14 +7,13 @@ from .summaries import *
 from .util import *
 
 def handle(parsing, verbose):
-<<<<<<< HEAD
-=======
+
     '''
     :parsing - Parsed pyparsing object
     :verbose - boolean variable used to control type of messaged displayed to console
     Main Function that handles model phase, apply phase, and metric phase of SML
     '''
->>>>>>> a603c8c12439512720b992160fe3ccad53063096
+
 
     keywords = keyword_check(parsing)
 
@@ -63,14 +62,8 @@ def _connect_load(keywords, verbose):
     :returns the model
     '''
     from ..python.actions.IO.load_functions import handle_load
-<<<<<<< HEAD
     model = handle_load(keywords.get('load').get('fileName'))
     return model, None, None, None, None, None, None
-=======
-    model = handle_load(keywords.get('load').get('filename'))
-
-    return model, None, None, None, None, None, None, None
->>>>>>> a603c8c12439512720b992160fe3ccad53063096
 
 def _connect_read(keywords, verbose):
     '''
@@ -204,9 +197,6 @@ def _apply_phase(keywords, model, X_test, y_test):
 
 
 def _metrics_phase(keywords, model, algoType, df, X_train, y_train, X_test, y_test):
-<<<<<<< HEAD
-    # PLOT Keyword
-=======
     '''
     Metrics phase of SML used to visualize data and results of model
     :keywords - dictionary of keywords and there values
@@ -219,7 +209,6 @@ def _metrics_phase(keywords, model, algoType, df, X_train, y_train, X_test, y_te
     :y_test - testig=ng data (labels)
     '''
 
->>>>>>> a603c8c12439512720b992160fe3ccad53063096
     plot_types = []
 
     from ..python.actions.metrics.visualize import handle_plots
