@@ -1,6 +1,8 @@
 # SML
 SML aims to proved a universal language agnostic framework to simplify the development of machine learning pipelines
+
 ____
+
 ## Setup
 Begin by cloning this repository with the following terminal command
 
@@ -15,6 +17,7 @@ sudo python3 setup.py develop
 After running this command, the SML library will be accessible anywhere on your machine via Python.
 
 ____
+
 ## Simple Code Example
 
 ```python
