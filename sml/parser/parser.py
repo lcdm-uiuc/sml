@@ -8,9 +8,8 @@ def smlparser():
 	Define SML Parser.
 	:returns Legal set of actions as a pyparsing object
 	"""
-
     comment = _define_comment()
-    actionList = define_actionList()
+	actionList = define_actionList()
     return actionList
 
 def _define_comment(comment="--"):
