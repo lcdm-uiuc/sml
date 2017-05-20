@@ -21,7 +21,9 @@ def handle(parsing, verbose):
 
     if model is not None:  # If model isn't created no need to run through apply phase
         result = _apply_phase(keywords, model, X_test, y_test)
-        # print(result)
+        print(result)
+    else:
+        print("no model")
 
     if keywords.get('plot'):  # for now plot is the only thing that needs to be specified
         _metrics_phase(keywords, model, algoType, df, X_train, y_train, X_test, y_test)
