@@ -11,12 +11,11 @@ def define_load():
 	Defition of Load Keyword
 	:returns pyparsing object
 	'''
-    filename = Word(everything).setResultsName("fileName")
+	filename = Word(everything).setResultsName("fileName")
 
     #define so that there can be multiple verisions of LOAD
-    loadKeyword = Keyword("load", caseless = True).setResultsName("load")
+	loadKeyword = Keyword("load", caseless = True).setResultsName("load")
 
     #Combine to create parsing for load keyword
-    load = loadKeyword + filename
-
-    return load
+	load = loadKeyword + filename
+	return load
