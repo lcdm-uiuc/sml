@@ -8,6 +8,6 @@ setup(name='sml',
     author_email='neeasthana@gmail.com, mike.hao@yahoo.com',
     license='UIUC',
     install_requires=['markdown','pandas', 'pyparsing', 'requests', \
-    'scikit-learn'],
+    'scikit-learn','pudb'],
     packages=["sml",],
     zip_safe=False)
