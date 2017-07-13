@@ -2,7 +2,7 @@
 Defines all parser functionality for the CLUSTER keyword
 """
 from ...util.grammar import *
-from ...util._constants import choice_columns
+from ...util._constants import choice_columns, column
 from .cluster_algorithms import kmeans
 from pyparsing import Literal, oneOf, Optional, Word, Keyword, MatchFirst, delimitedList
 
@@ -24,6 +24,11 @@ def define_cluster():
     predPhrase = (Literal("predictors") + Literal("=")).suppress()
     predictorsDef = choice_columns.setResultsName("predictors")
     preds = predPhrase + predictorsDef
+    labelPhrase = (Literal("label") + Literal("=")).suppress()
+    labelDef = column.setResultsName("label")
+    labels = labelPhrase + labelDef
 
-    cluster = clusterKeyword + openParen + preds + ocomma + algo + closeParen
+
+    cluster = clusterKeyword + openParen + preds + ocomma + Optional(labels) + ocomma + algo + closeParen
+
     return cluster

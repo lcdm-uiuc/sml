@@ -23,8 +23,9 @@ def handle(parsing, verbose):
     if model is not None:  # If model isn't created no need to run through apply phase
         result = _apply_phase(keywords, model, X_test, y_test)
         print(result)
-    else:
+    elif model is None:
         print("no model")
+
 
     if keywords.get('plot'):  # for now plot is the only thing that needs to be specified
         _metrics_phase(keywords, model, algoType, df, X_train, y_train, X_test, y_test)
@@ -165,7 +166,7 @@ def _apply_phase(keywords, model, X_test, y_test):
     :X_test - df of features to use
     :y_test - labels
     """
-    if keywords.get('split'):
+    if keywords.get('split') and X_test is not None and y_test is not None:
         results = model.score(X_test, y_test)
         return(results)
     if keywords.get('apply'):
@@ -194,7 +195,7 @@ def _apply_phase(keywords, model, X_test, y_test):
         return(results)
 
     else:
-        print("No apply phase")
+        print("Apply phase could not be completed")
         return(None)
     pass
 

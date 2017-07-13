@@ -55,6 +55,7 @@ def _cluster_no_label(data, model, X, split, train):
     """
     Dataflow for clustering when a label is not specified
     """
+    print("No label found, attempting unsupervised clustering")
     #items to return
     X_train, X_test = X, None
 
