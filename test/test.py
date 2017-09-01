@@ -45,7 +45,7 @@ count = 0
 for query in queries:
     print("Query " + str(count + 1))
     try:
-        execute(query, verbose=True)
+        execute(query, verbose=None)
     except Exception as e:
         print("Failed")
         traceback.print_tb(sys.exc_info()[2])
