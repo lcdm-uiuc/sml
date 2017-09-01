@@ -1,3 +1,5 @@
+import unittest
+
 import sml_auto
 import sml_boston
 import sml_census
@@ -11,64 +13,28 @@ import sml_wine
 import sys
 import traceback
 
-print("Testing General Model Building Functionality")
-try:
-    assert sml_auto.test()> 0
-    print("Auto Passed")
-except Exception as e:
-    print("Auto Failed")
-    print(str(e))
-try:
-    assert sml_boston.test()> 0
-    print("Boston Passed")
-except Exception as e:
-    print("Boston Failed")
-    print(str(e))
-try:
-    assert sml_census.test()> 0
-    print("Census Passed")
-except Exception as e:
-    print("Census Failed")
-    print(str(e))
-try:
-    assert sml_chronic.test()> 0
-    print("Chronic Passed")
-except Exception as e:
-    print("Chronic Failed")
-    print(str(e))
-try:
-    assert sml_computer.test()> 0
-    print("Computer Passed")
-except Exception as e:
-    print("Computer Failed")
-    print(str(e))
-try:
-    assert sml_iris.test()> 0
-    print("Iris Passed")
-except Exception as e:
-    print("Iris Failed")
-    print(str(e))
-try:
-    assert sml_seeds.test() != None
-    print("Seeds Passed")
-except Exception as e:
-    print("Seeds Failed")
-    print(str(e))
-try:
-    assert sml_spam.test()> 0
-    print("Spam Passed")
-except Exception as e:
-    print("Spam Failed")
-    print(str(e))
-try:
-    assert sml_titanic.test() > 0
-    print("Titanic Passed")
-except Exception as e:
-    print("Titanic Failed")
-    print(str(e))
-try:
-    assert sml_wine.test() > 0
-    print("Wine Passed")
-except Exception as e:
-    print("Wine Failed")
-    print(str(e))
+class SmlIntegrationTests(unittest.TestCase):
+
+    # print("Testing General Model Building Functionality")
+    def test_auto(self):
+        assert sml_auto.test() is not None
+    def test_boston(self):
+        assert sml_boston.test() is not None
+    def test_census(self):
+        assert sml_census.test() is not None
+    def test_chronic(self):
+        assert sml_chronic.test() is not None
+    def test_computer(self):
+        assert sml_computer.test() is not None
+    def test_iris(self):
+        assert sml_iris.test() is not None
+    def test_seeds(self):
+        assert sml_seeds.test() is not None
+    def test_spam(self):
+        assert sml_spam.test() is not None
+    def test_titanic(self):
+        assert sml_titanic.test() is not None
+    def test_wine(self):
+        assert sml_wine.test() is not None
+if __name__ == '__main__':
+    unittest.main()
