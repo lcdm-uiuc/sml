@@ -1,6 +1,6 @@
 from .util import *
 
-def summary_read(parsingInfo,df, verbose=False):
+def summary_read(parsingInfo,df, verbose):
     filename = parsingInfo.get('read').get('fileName')
     sep = parsingInfo.get('read').get('sep')
     if verbose:
@@ -18,14 +18,14 @@ Sml Summary:
 =============================================
 =============================================
 ''' % (filename, sep, df.head() ))
-    else:
+    elif verbose == False:
         print ('Using %s Algorithm, the dataset is from: %s. Currently using Predictors from column(s) %s and Label(s) from column(s) %s. ' \
         % (algo, filename, predictors, label) )
 
 
     return None
 
-def summary_msg(parsingInfo, df, verbose=False):
+def summary_msg(parsingInfo, df, verbose):
     # Read keywords
     fileName = 'None'
     sep = 'None'
@@ -81,6 +81,6 @@ Sml Summary:
 =============================================
 =============================================
 ''' % (filename, sep, train, test, predictors, label, algo, df.head()))
-    else:
+    elif verbose == False:
         print ('Using %s Algorithm, the dataset is from: %s. Currently using Predictors from column(s) %s and Label(s) from column(s) %s. ' \
         % (algo, filename, predictors, label) )

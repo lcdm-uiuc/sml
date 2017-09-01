@@ -9,7 +9,7 @@ def execute(command, verbose=False):
 	"""
 	myparser = smlparser()
 	result = myparser.parseString(command)
-	handle(result, verbose)
+	return handle(result, verbose)
 
 
 
