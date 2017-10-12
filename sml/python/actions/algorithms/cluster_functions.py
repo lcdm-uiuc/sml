@@ -3,66 +3,78 @@ Performs logic to handle the CLUSTER keyword from ML-SQL language
 """
 from ...utils import string_helpers
 from .algorithms import handle_cluster_algorithm
-from sklearn.cross_validation import train_test_split
+from sklearn.feature_selection import SelectFromModel, RFE
 
-def handle_cluster(data, algorithm, preds, label = None, clusters = 3, split = False, train = 1):
+
+def handle_cluster(data, algorithm, preds, label = None, clusters = 3, feature='RFE'):
     """
     Performs logic to handle the CLUSTER keyword from ML-SQL language
     """
     model = handle_cluster_algorithm(algorithm)
     if model is not None:
-        if clusters is '' or clusters is None:
-            clusters = '3'
-        model.n_clusters = int(clusters)
+        #convert list of columns to integers and covert columns to start at 0
+        if string_helpers.check_exists(label):
+            pred_cols = list()
+            for pred in preds:
+                pred_cols.append(int(pred) - 1)
+            X = data.iloc[:,pred_cols]
+            label_col = string_helpers.convert_int(label) - 1
+            y = data.iloc[:,label_col]
+            return model.fit(X,y)
+        else:
+            return model.fit(data)
+    else:
+        return None
+
+
+def _cluster_label(data, model, preds, label, feature):
+    """
+    Dataflow for clustering when a label is specified
+    """
+    #Convert label from a string to an int
+    label_col = string_helpers.convert_int(label) - 1
+    y = data.iloc[:,label_col]
+
+
+    if feature is None or feature == 'RFE':
+        try:
+            feat_select = RFE(model) # Param for how many features the user wants
+            feat_select.fit(X_train, y_train)
+            #X_train = feat_select.transform(X_train)
+            #X_test = feat_select.transform(X_test)
+            return feat_select, X_train, y_train, X_test, y_test
+        except RuntimeError:
+            print ('Warning: This model does not have feature importance attributes (Using all features).')
+        except ValueError:
+            print ('Warning: This model does not have feature importance attributes (Using all features).')
+
+    #Train model
+    model.fit(X_train, y_train)
+
+    return model, X_train, y_train, X_test, y_test
+
+
+def handle_regress(data, algorithm, preds, label, feature='RFE'):
+    """
+    Performs logic to handle the classify keyword from ML-SQL language
+    """
+    model = handle_regress_algorithm(algorithm)
+    if model is not None:
 
         #convert list of columns to integers and covert columns to start at 0
         pred_cols = list()
         for pred in preds:
             pred_cols.append(int(pred) - 1)
 
-        X = data.ix[:,pred_cols]
+        #Convert label from a string to an int
+        label_col = string_helpers.convert_int(label) - 1
 
-        if string_helpers.check_exists(label):
-            return _cluster_label(data, model, X, label, split, train)
-        else:
-            return _cluster_no_label(data, model, X, split, train)
+        X = data.iloc[:,pred_cols]
+        y = data.iloc[:,label_col]
+
+        #Train model
+        model.fit(X, y)
+
+        return model
     else:
-        return None, None, None
-
-
-def _cluster_label(data, model, X, label, split, train):
-    """
-    Dataflow for clustering when a label is specified
-    """
-    #Convert label from a string to an int
-    label_col = string_helpers.convert_int(label) - 1
-    y = data.ix[:,label_col]
-
-    #items to return
-    X_train, y_train, X_test, y_test = X, y, None, None
-
-    if(split):
-        train = float(train)
-        X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=train, test_size=(1-train))
-
-    #Train model
-    model.fit(X_train, y_train)
-    # KI: Need to return training data to generate Learning curves and other metrics
-    return model, X_train, y_train, X_test, y_test
-
-
-def _cluster_no_label(data, model, X, split, train):
-    """
-    Dataflow for clustering when a label is not specified
-    """
-    print("No label found, attempting unsupervised clustering")
-    #items to return
-    X_train, X_test = X, None
-
-    if(split):
-        train = float(train)
-        X_train, X_test = train_test_split(X, train_size=train, test_size=(1-train))
-
-    #Train model
-    model.fit(X_train)
-    return model, X_train, X_test, None, None
+        return None

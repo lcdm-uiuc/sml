@@ -4,6 +4,7 @@ from .algorithms.cluster import define_cluster
 from .preprocessing.read import define_read
 from .preprocessing.split import define_split
 from .preprocessing.replace import define_replace
+from .preprocessing.encode import define_encode
 from .apply import define_apply
 
 from .IO.load import define_load
@@ -39,7 +40,8 @@ def _define_action():
     save = define_save()
     applyAction = define_apply()
     plot = define_plot()
+    encode = define_encode()
 
-    action = classify ^ regress ^cluster ^ read ^split^ replace ^ load ^ save ^ plot ^ applyAction
+    action = classify ^ regress ^cluster ^ read ^split^ replace ^ load ^ save ^ plot ^ applyAction ^ encode
 
     return action

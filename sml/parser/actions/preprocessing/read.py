@@ -14,6 +14,7 @@ def define_read():
     readKeyword = Keyword("read", caseless = True).setResultsName("read")
     #Compose Read Optionals
     readOptions = _define_read_options()
+
     read = readKeyword + Quote + filename + Quote + Optional(readOptions)
     return read
 

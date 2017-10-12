@@ -3,10 +3,13 @@ import sys
 import traceback
 from sml import execute
 
-class SmlIntegrationTests(unittest.TestCase):
+class sml_integragtion_tests(unittest.TestCase):
 
     def test_auto(self):
-        query = 'READ "../data/seeds.csv" (separator = "\s+", header = 0) AND SPLIT (train = .8, test = .2, validation = .0) and REPLACE (missing="NaN", strategy="mode") AND CLUSTER (predictors = [1,2,3,4,5,6,7], label = 8, algorithm = kmeans)'
+        query ='READ "../data/auto.csv" (separator = "\s+", header = None) AND\
+         REPLACE (missing = "?", strategy = "mode") AND\
+          SPLIT (train = .8, test = .2) AND \
+          REGRESS (predictors = [2,3,4,5,6,7,8], label = 1, algorithm = lasso)'
         assert execute(query, verbose=None) is not None
 
     def test_boston(self):
@@ -14,20 +17,21 @@ class SmlIntegrationTests(unittest.TestCase):
         assert execute(query, verbose=None) is not None
 
     def test_census(self):
-        query = 'READ "../data/census.csv" (separator=",", header = 0, types = [1:numeric, 2:string]) AND REPLACE (missing = "NaN", strategy = "mode") and SPLIT (train = .8, test = 0.2) and CLASSIFY (predictors=[1,2,3,4,5 , 6,7, 8, 9, 10 ,11 ,12, 13,14], label = 15, algorithm = logistic)'
+        query = 'READ "../data/census.csv" (separator=",", header = 0, types = [1:numeric, 2:string]) AND REPLACE (missing = "NaN", strategy = "mode") and ENCODE (strategy = "regular") and SPLIT (train = .8, test = 0.2) and CLASSIFY (predictors=[1,2,3,4,5 , 6,7, 8, 9, 10 ,11 ,12, 13,14], label = 15, algorithm = logistic)'
         assert execute(query, verbose=None) is not None
 
     def test_chronic(self):
         query = 'READ "../data/chronic.csv" (separator = ",", header = None) AND\
-        REPLACE (missing="?", strategy = "mode") AND SPLIT (train = .8, test = 0.2) AND CLASSIFY \
+        REPLACE (missing="?", strategy = "mode") AND ENCODE (strategy = "regular") \
+        AND SPLIT (train = .8, test = 0.2) AND CLASSIFY \
         (predictors = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24],\
          label = 25, algorithm = logistic)'
         assert execute(query, verbose=None) is not None
 
     def test_computer(self):
         query = 'READ "../data/computer.csv" (separator = ",", header = 0) AND \
-        SPLIT (train = .8, test = .2, validation = .0) AND \
-        REGRESS (predictors = [1,2,3,4,5,6,7,8,9], label = 10, algorithm = ridge)'
+        SPLIT (train = .8, test = .2, validation = .0) AND ENCODE (strategy = "regular")\
+         AND REGRESS (predictors = [1,2,3,4,5,6,7,8,9], label = 10, algorithm = ridge)'
         assert execute(query, verbose=None) is not None
 
     def test_iris(self):
@@ -47,6 +51,7 @@ class SmlIntegrationTests(unittest.TestCase):
     def test_titanic(self):
         query = 'READ "../data/train.csv" (separator = ",", header = 0) AND\
         REPLACE (missing="NaN", strategy="mode") AND SPLIT (train = .8, test = 0.2) AND\
+        AND ENCODE (strategy = "regular") AND\
         CLASSIFY (predictors = [1,3,4,5,6,7,8,9,10,11,12], label = 2, algorithm = forest)'
         assert execute(query, verbose=None) is not None
 

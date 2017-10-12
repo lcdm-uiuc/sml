@@ -2,12 +2,12 @@
 Performs logic to handle the REGRESS keyword from ML-SQL language
 """
 from ...utils import string_helpers
-from sklearn.cross_validation import train_test_split
 from .algorithms import handle_regress_algorithm
+from sklearn.feature_selection import SelectFromModel, RFE
 
-def handle_regress(data, algorithm, preds, label, split = False, train = 1):
+def handle_regress(data, algorithm, preds, label, feature='RFE'):
     """
-    Performs logic to handle the REGRESS keyword from SML language
+    Performs logic to handle the classify keyword from ML-SQL language
     """
     model = handle_regress_algorithm(algorithm)
     if model is not None:
@@ -20,19 +20,12 @@ def handle_regress(data, algorithm, preds, label, split = False, train = 1):
         #Convert label from a string to an int
         label_col = string_helpers.convert_int(label) - 1
 
-        X = data.ix[:,pred_cols]
-        y = data.ix[:,label_col]
+        X = data.iloc[:,pred_cols]
+        y = data.iloc[:,label_col]
 
-        #items to return
-        X_train, X_test, y_train, y_test = X, None, y, None
-
-        if(split):
-            train = float(train)
-            X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=train, test_size=(1-train))
         #Train model
-        model.fit(X_train, y_train)
-        # KI: Need to training data as well for learning curves and other general methods
+        model.fit(X, y)
 
-        return model, X_train, y_train, X_test, y_test
+        return model
     else:
         return None

@@ -2,7 +2,7 @@ from ...util.grammar import *
 from ...util._constants import choice_columns, column
 from .classify_algorithms import svm, logistic, forest, bayes, knn
 
-from pyparsing import Literal, oneOf, Optional, Word, OneOrMore, MatchFirst, delimitedList
+from pyparsing import Literal, oneOf, Optional, Word, OneOrMore, MatchFirst, delimitedList, CaselessLiteral
 
 def define_classify():
     '''
@@ -33,7 +33,9 @@ def define_classify():
     #combine phrases with found column numbers
     preds = predPhrase + predictorsDef
     labels = labelPhrase + labelDef
-
-    classify = classifyKeyword + openParen + preds + ocomma + labels + ocomma + algo + closeParen
+    
+    option = MatchFirst([preds, labels, algo])
+    options = delimitedList(option, delim=',')
+    classify = classifyKeyword + openParen + Optional(options) + closeParen
 
     return classify

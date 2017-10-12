@@ -21,6 +21,6 @@ def define_plot():
 	_plot_type_values = openBracket + delimitedList(plot_type_value, delim=',', combine=True) + closeBracket
 	plot_type_values = MatchFirst([plot_type_value, _plot_type_values]).setResultsName('plot_type_values')
 
-	plot = plot_keyword + openParen + plot_model_type + plot_model_values + ocomma + plot_type + plot_type_values + closeParen 
+	plot = plot_keyword + Optional(openParen + plot_model_type + plot_model_values + ocomma + plot_type + plot_type_values + closeParen) 
 
 	return plot

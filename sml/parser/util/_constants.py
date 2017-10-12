@@ -16,6 +16,8 @@ decimal = Regex(r'\d*\.?\d*')
 index_and_type = Combine(Word(numbers + ' ') + ':' + Word(alphas + ' '))
 index_and_type_list = delimitedList(index_and_type, combine=True)
 
+word_to_word = Combine(Word(alphas + ' ') + ':' + Word(letters + '.' + ' '))
+word_to_word_list = delimitedList(word_to_word, combine=True)
 
 
 listOptions = ['predictors', 'dtypes']

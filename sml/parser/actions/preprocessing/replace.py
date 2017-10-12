@@ -10,33 +10,37 @@ def define_replace():
     #define so that there can be multiple verisions of Replace
     replaceKeyword = oneOf(["Replace", "REPLACE"]).setResultsName("replace")
 
-    #Define the columns that need to be replaced
-    replace_cols = choice_columns.setResultsName("replaceColumns")
-
-    #Define value that needs replacing
-    replace_missing = Quote + Word(everythingWOQuotes).setResultsName("replaceIdentifier") + Quote
-
-    #defines possible values or optional replacement words
-    value = Quote + Word(everythingWOQuotes) + Quote
-    options = _replace_options()
-    replacements = MatchFirst(options + [value]).setResultsName("replaceValue")
-
-    #single group for column replace
-    single_replacement = openParen + replace_cols + ocomma + replace_missing + ocomma + replacements + closeParen
-    group_replacements = delimitedList(single_replacement)
-    missingValKeyword = (CaselessLiteral('missing') + Literal('=')).suppress()
-    strategyKeyword = (CaselessLiteral('strategy') + Literal('=')).suppress()
-    #temporary for a single demo (please remove later)
-    temp_replacement = openParen + missingValKeyword + replace_missing + ocomma + strategyKeyword + replacements + closeParen
+    replace_options = _define_replace_options()
 
     #putting it all together to create replacement
-    replace = replaceKeyword + temp_replacement
+    replace = replaceKeyword + Optional(replace_options)
 
     return replace
 
 
+def _define_replace_options():
 
-def _replace_options():
+    strategyKeyword = (CaselessLiteral('strategy') + Literal('=')).suppress()
+    strategyOptions = _strategy_options()
+    strategy = strategyKeyword + Quote + MatchFirst(strategyOptions).setResultsName('replaceValue') + Quote
+
+    #missingvals
+    missingValKeyword = (CaselessLiteral('missing') + Literal('=')).suppress()
+    missingValue = Quote + Word(everythingWOQuotes).setResultsName("replaceIdentifier") + Quote
+    missing = missingValKeyword + missingValue
+
+    #persist
+    persistKeyword = (CaselessLiteral('persist') + Literal('=')).suppress()
+    persistValue = Quote + Word(everythingWOQuotes).setResultsName('replacePersist') + Quote
+    persist = Optional(persistKeyword + persistValue)
+
+    option = MatchFirst([strategy, missing, persist])
+    replaceOptions = openParen + delimitedList(option, delim=',') + closeParen
+
+    return replaceOptions
+
+
+def _strategy_options():
     """
     Defines different word replacement strategies for missing values
     - mean, max, min, median, mode

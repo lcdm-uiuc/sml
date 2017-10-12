@@ -1,17 +1,17 @@
 _keywords = {
             'load':['fileName'],
             'read':['fileName', 'header', 'sep', 'dtypes'],
-            'split':['train_split','test_split'],
-            'replace':['replaceColumns','replaceValue','replaceIdentifier'],
-            'classify': ['predictors', 'label', 'algorithm'],
-            'regress': ['predictors', 'label', 'algorithm'],
-            'cluster': ['predictors', 'label', 'numClusters','algorithm'],
+            'split':['train_split','test_split','persist_names_split'],
+            'replace':['replaceColumns','replaceValue','replaceIdentifier','replacePersist'],
+            'classify': ['predictors', 'label', 'algorithm', 'feature'],
+            'regress': ['predictors', 'label', 'algorithm', 'feature'],
+            'cluster': ['predictors', 'label', 'numClusters','algorithm', 'feature'],
             'save': ['savefile'],
-            'apply':['applyFileName'],
+            'encode':['encodeStrategy', 'encodePersist'],
+            'apply':['applyFileName', 'applyHeader', 'applySep', 'applyDTypes','applyPredictors','applyLabel'],
             'plot':['plot_model_type', 'plot_type_values']
              }
-_listOptions = ['predictors', 'dtypes']
-
+_listOptions = ['predictors', 'dtypes','applyDTypes','persist_names_split','applyPredictors']
 def keyword_check(parsing):
     '''
     Maps parsed string to dictionary

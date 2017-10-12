@@ -1,6 +1,6 @@
 from ...util.grammar import *
 from ...util._constants import choice_columns, column
-from pyparsing import Literal, Keyword, Optional, Word, MatchFirst
+from pyparsing import Literal, Keyword, Optional, Word, MatchFirst, oneOf, CaselessLiteral, delimitedList
 from .regression_algorithms import simple, lasso, ridge, elastic
 
 def define_regress():
@@ -18,6 +18,11 @@ def define_regress():
     elasticd = elastic.define_elastic()
     algo = algoPhrase + MatchFirst([simpled, lassod, ridged, elasticd]).setResultsName("algorithm")
 
+    # Grammar for Feature Selection
+    feature_prefix = Optional(CaselessLiteral("feature") + Literal("=")).suppress()
+    feature_value = oneOf(["False", "AUTO", "RFE"]).setResultsName("feature")
+    feature = feature_prefix + feature_value
+
     #define so that there can be multiple verisions of Regression
     regressKeyword = Keyword("regress", caseless = True).setResultsName("regress")
 
@@ -33,6 +38,10 @@ def define_regress():
     preds = predPhrase + predictorsDef
     labels = labelPhrase + labelDef
 
-    regress = regressKeyword + openParen + preds + ocomma + labels + ocomma + algo + closeParen
+    option = MatchFirst([preds, labels, algo])
+    options = delimitedList(option, delim=',')
+
+    regress = regressKeyword + openParen + Optional(options)+ closeParen
+
 
     return regress

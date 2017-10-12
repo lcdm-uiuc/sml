@@ -1,6 +1,6 @@
 from .util import *
 
-def summary_read(parsingInfo,df, verbose):
+def summary_read(parsingInfo,df, verbose=False):
     filename = parsingInfo.get('read').get('fileName')
     sep = parsingInfo.get('read').get('sep')
     if verbose:
@@ -18,14 +18,16 @@ Sml Summary:
 =============================================
 =============================================
 ''' % (filename, sep, df.head() ))
-    elif verbose == False:
+    else:
         print ('Using %s Algorithm, the dataset is from: %s. Currently using Predictors from column(s) %s and Label(s) from column(s) %s. ' \
         % (algo, filename, predictors, label) )
 
 
     return None
 
-def summary_msg(parsingInfo, df, verbose):
+def summary_msg(parsingInfo, df, verbose=False):
+    if verbose == None:  # Used for testing
+        return
     # Read keywords
     fileName = 'None'
     sep = 'None'
@@ -63,7 +65,7 @@ def summary_msg(parsingInfo, df, verbose):
     Or simple summary message.
     """
     if verbose:
-        print (\
+      msg = \
 '''
 Sml Summary:
 =============================================
@@ -80,7 +82,11 @@ Sml Summary:
 
 =============================================
 =============================================
-''' % (filename, sep, train, test, predictors, label, algo, df.head()))
-    elif verbose == False:
-        print ('Using %s Algorithm, the dataset is from: %s. Currently using Predictors from column(s) %s and Label(s) from column(s) %s. ' \
-        % (algo, filename, predictors, label) )
+''' % (filename, sep, train, test, predictors, label, algo, df.head())
+      print(msg)
+      return msg
+    else:
+      msg = 'Using %s Algorithm, the dataset is from: %s. Currently using Predictors from column(s) %s and Label(s) from column(s) %s. ' \
+        % (algo, filename, predictors, label)
+      print(msg)
+      return msg

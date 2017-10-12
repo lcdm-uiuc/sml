@@ -2,9 +2,9 @@
 Defines all parser functionality for the CLUSTER keyword
 """
 from ...util.grammar import *
-from ...util._constants import choice_columns, column
+from ...util._constants import choice_columns
 from .cluster_algorithms import kmeans
-from pyparsing import Literal, oneOf, Optional, Word, Keyword, MatchFirst, delimitedList
+from pyparsing import Literal, oneOf, Optional, Word, Keyword, MatchFirst, delimitedList, CaselessLiteral
 
 def define_cluster():
     '''
@@ -17,7 +17,12 @@ def define_cluster():
     kmeansd = kmeans.define_kmeans()
     algo = algoPhrase + MatchFirst([kmeansd]).setResultsName("algorithm")
 
-    #define so that there can be multiple verisions of Classify
+    # Grammar for Feature Selection
+    feature_prefix = Optional(CaselessLiteral("feature") + Literal("=")).suppress()
+    feature_value = oneOf(["False", "AUTO", "RFE"]).setResultsName("feature")
+    feature = feature_prefix + feature_value
+
+    #define so that there can be multiple verisions of Cluster
     clusterKeyword = Keyword("cluster", caseless=True).setResultsName("cluster")
 
     #define predictor word to specify column numbers
@@ -25,10 +30,12 @@ def define_cluster():
     predictorsDef = choice_columns.setResultsName("predictors")
     preds = predPhrase + predictorsDef
     labelPhrase = (Literal("label") + Literal("=")).suppress()
-    labelDef = column.setResultsName("label")
+    labelDef = choice_columns.setResultsName("label")
     labels = labelPhrase + labelDef
 
+    option = MatchFirst([preds, labels, algo])
+    options = delimitedList(option, delim=',')
 
-    cluster = clusterKeyword + openParen + preds + ocomma + Optional(labels) + ocomma + algo + closeParen
+    cluster = clusterKeyword + openParen + Optional(options)+ closeParen
 
     return cluster

@@ -4,7 +4,12 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.feature_extraction import DictVectorizer
 
-
+def handle_encode(strategy, df, cols=None):
+    if strategy ==  'regular':
+        df = encode_categorical(df,cols)
+    if strategy ==  'one-hot':
+        df = encode_onehot(df,cols)
+    return None
 """
 encode_categorical()
   Encode categorical features using 1 dimensional encoding
