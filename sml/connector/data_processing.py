@@ -54,7 +54,7 @@ def _connect_encode(df, keywords, verbose):
 
     encodeDict = keywords.get('encode')
     strategy = encodeDict.get('encodeStrategy')
-    pp.handle_encode(strategy, df)
+    df = pp.handle_encode(strategy, df)
     if encodeDict.get('encodePersist'):
         io.handle_write_csv(df, encodeDict.get('encodePersist'))
     return df
