@@ -9,7 +9,7 @@ def handle_encode(strategy, df, cols=None):
         df = encode_categorical(df,cols)
     if strategy ==  'one-hot':
         df = encode_onehot(df,cols)
-    return None
+    return df
 """
 encode_categorical()
   Encode categorical features using 1 dimensional encoding
