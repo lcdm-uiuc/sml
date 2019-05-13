@@ -1,5 +1,16 @@
-# SML
+---
+layout: default
+title: Home
+nav_order: 1
+description: "Main Page"
+permalink: /
+---
+
+
+# SML - Standard Machine Learning Language
 SML aims to proved a universal language agnostic framework to simplify the development of machine learning pipelines
+
+[Get started now](#setup){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 } [View it on GitHub](https://github.com/lcdm-uiuc/sml){: .btn .fs-5 .mb-4 .mb-md-0 }
 
 ____
 
@@ -57,11 +68,11 @@ Currently using Predictors from column(s) ['2', '3', '4',
 '5', '6', '7', '8'] and Label(s) from column(s) 1.
 ```
 
-### Getting Started with SML
-For detailed tutorials on the language, take a look at the [SML tutorials](https://github.com/UI-DataScience/sml/blob/master/dataflows/README.md).
+### SML Tutorials
+For detailed tutorials of SML, take a look at the [SML tutorials](docs/tutorials/).
 
 ### Parser Documentation
-For more extensive documentation on the language, take a look at the [documentation for the parser](https://github.com/UI-DataScience/sml/tree/master/sml/parser)
+For more extensive documentation on the language, take a look at the [documentation for the parser](docs/parser/)
 
 ### Implementation Documentation
 For a more extensive documentation on the implementation details take a look at the [SML documentation](https://github.com/UI-DataScience/sml/tree/master/sml)

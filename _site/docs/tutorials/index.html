@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  
+
+  <title>Tutorials - SML</title>
+  <link rel="stylesheet" href="http://localhost:4000/assets/css/just-the-docs.css">
+
+  
+
+  
+    <script type="text/javascript" src="http://localhost:4000/assets/js/vendor/lunr.min.js"></script>
+  
+  <script type="text/javascript" src="http://localhost:4000/assets/js/just-the-docs.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.6.0 -->
+<title>Tutorials | SML</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Tutorials" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="SML documentation page" />
+<meta property="og:description" content="SML documentation page" />
+<link rel="canonical" href="http://localhost:4000/docs/tutorials/" />
+<meta property="og:url" content="http://localhost:4000/docs/tutorials/" />
+<meta property="og:site_name" content="SML" />
+<script type="application/ld+json">
+{"headline":"Tutorials","url":"http://localhost:4000/docs/tutorials/","description":"SML documentation page","@type":"WebPage","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+</head>
+
+<body>
+
+  <div class="page-wrap">
+    <div class="side-bar">
+      <a href="http://localhost:4000" class="site-title fs-6 lh-tight">SML</a>
+      <span class="fs-3"><button class="js-main-nav-trigger navigation-list-toggle btn btn-outline" type="button" data-text-toggle="Hide">Menu</button></span>
+      <div class="navigation main-nav js-main-nav">
+        <nav role="navigation" aria-label="Main navigation">
+  <ul class="navigation-list">
+    
+    
+      
+    
+      
+        
+          <li class="navigation-list-item">
+            
+            <a href="http://localhost:4000/" class="navigation-list-link">Home</a>
+            
+          </li>
+        
+      
+    
+      
+        
+          <li class="navigation-list-item">
+            
+            <a href="http://localhost:4000/docs/parser/" class="navigation-list-link">Parser</a>
+            
+          </li>
+        
+      
+    
+      
+        
+          <li class="navigation-list-item active">
+            
+            <a href="http://localhost:4000/docs/tutorials/" class="navigation-list-link active">Tutorials</a>
+            
+          </li>
+        
+      
+    
+  </ul>
+</nav>
+
+      </div>
+      <footer role="contentinfo" class="site-footer">
+        <p class="text-small text-grey-dk-000 mb-0">This site uses <a href="https://github.com/pmarsceill/just-the-docs">Just the Docs</a>, a documentation theme for Jekyll.</p>
+      </footer>
+    </div>
+    <div class="main-content-wrap js-main-content" tabindex="0">
+      <div class="page-header">
+        <div class="main-content">
+          
+          <div class="search js-search">
+            <div class="search-input-wrap">
+              <input type="text" class="js-search-input search-input" tabindex="0" placeholder="Search SML" aria-label="Search SML" autocomplete="off">
+              <svg width="14" height="14" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg" class="search-icon"><title>Search</title><g fill-rule="nonzero"><path d="M17.332 20.735c-5.537 0-10-4.6-10-10.247 0-5.646 4.463-10.247 10-10.247 5.536 0 10 4.601 10 10.247s-4.464 10.247-10 10.247zm0-4c3.3 0 6-2.783 6-6.247 0-3.463-2.7-6.247-6-6.247s-6 2.784-6 6.247c0 3.464 2.7 6.247 6 6.247z"/><path d="M11.672 13.791L.192 25.271 3.02 28.1 14.5 16.62z"/></g></svg>
+            </div>
+            <div class="js-search-results search-results-wrap"></div>
+          </div>
+          
+          
+            <ul class="list-style-none text-small mt-md-1 mb-md-1 pb-4 pb-md-0 js-aux-nav aux-nav">
+              
+                <li class="d-inline-block my-0"><a href="//github.com/lcdm-uiuc/sml">SML on GitHub</a></li>
+              
+            </ul>
+          
+        </div>
+      </div>
+      <div class="main-content">
+        
+          
+        
+        <div id="main-content" class="page-content" role="main">
+          <h1 id="tutorials">Tutorials</h1>
+
+<p>This page contains tutorials in the form of jupyter notebooks that will allow you to interact with and learn how to use SML.</p>
+
+<h3 id="contents">Contents</h3>
+
+<ul>
+  <li><a href="#introductory-material">Introductory Material</a></li>
+  <li><a href="#reading-in-data">Reading in Data</a></li>
+  <li><a href="#seperating-keywords">Seperating Keywords</a></li>
+  <li><a href="#cleaning-up-data">Cleaning Up Data</a></li>
+  <li><a href="#partitioning-datasets">Partitioning Datasets</a></li>
+  <li><a href="#using-classification-alogorithms">Using Classification Alogorithms</a></li>
+  <li><a href="">Using Clustering Algorithms</a></li>
+  <li><a href="#using-regression-algorithms">Using Regression Algorithms</a></li>
+  <li><a href="#saving--loading-models">Saving / Loading Models</a></li>
+  <li><a href="#plotting-datasets-and-metrics-of-algorithms">Plotting Datasets and Metrics</a></li>
+</ul>
+
+<hr />
+<h3 id="introductory-material">Introductory Material</h3>
+
+<p>We assumed that you have installed SML, if not please see <a href="https://github.com/UI-DataScience/sml#setup">Instructions for Installing SML</a> before continuing. For the examples below we use publicly aviliable data which you can download manually nevertheless, for simplicity’s sake you can run the following <a href="https://github.com/UI-DataScience/sml/tree/master/dataflows/get_data.py">python script</a> to obtain the same data and begin running examples.</p>
+
+<hr />
+<h3 id="reading-in-data">Reading in Data</h3>
+<p>When reading in data using SML one must use the <code class="highlighter-rouge">READ</code> Keyword followed by the path to the file, for example:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">query</span> <span class="o">=</span> <span class="s">'READ "/path/to/dataset" '</span>
+</code></pre></div></div>
+
+<p>You can also provide optional arguments by including a <code class="highlighter-rouge">()</code> with arguments for example:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">query</span> <span class="o">=</span> <span class="s">'READ "/path/to/dataset" (sep = ",", header=None) '</span>
+</code></pre></div></div>
+<p>A list of the all of the READ optional arguments are:</p>
+<ul>
+  <li>header - Argument used to specify the header of a dataset. (By default this is None, if no header is present. Otherwise pass in a list or variable names.)</li>
+  <li>sep - Argument used to specify what a dataset is delimited by. (For fixed width files, use ‘\s+’)</li>
+  <li>dtypes - Argument used to specify the datatype of each column in a dataset.</li>
+</ul>
+
+<p>The table below contains examples of SML reading in Data from various datasets. To view the tutorials using the <code class="highlighter-rouge">READ</code> command click on the hyperlinks in the Tutorial Column. All of these datasets can be downloaded by clicking the hyperlinks in the Acknowledgment’s column.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Dataset</th>
+      <th style="text-align: center">Task</th>
+      <th style="text-align: center">Acknowledgement</th>
+      <th style="text-align: center">Tutorials</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"><strong>Iris</strong></td>
+      <td style="text-align: center"><code class="highlighter-rouge">READ</code></td>
+      <td style="text-align: center"><a href="https://archive.ics.uci.edu/ml/datasets/Iris">link</a></td>
+      <td style="text-align: center"><a href="https://github.com/UI-DataScience/sml/blob/master/dataflows/read/iris-READ.ipynb">notebook</a></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><strong>Auto-MPG</strong></td>
+      <td style="text-align: center"><code class="highlighter-rouge">READ</code></td>
+      <td style="text-align: center"><a href="https://archive.ics.uci.edu/ml/datasets/Auto+MPG">link</a></td>
+      <td style="text-align: center"><a href="https://github.com/UI-DataScience/sml/blob/master/dataflows/read/auto_mpg-READ.ipynb">notebook</a></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><strong>Wine</strong></td>
+      <td style="text-align: center"><code class="highlighter-rouge">READ</code></td>
+      <td style="text-align: center"><a href="https://archive.ics.uci.edu/ml/datasets/Wine">link</a></td>
+      <td style="text-align: center"><a href="https://github.com/UI-DataScience/sml/blob/master/dataflows/read/wine-READ.ipynb">notebook</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+<h2 id="seperating-keywords">Seperating Keywords</h2>
+<p>When seperating data, we use the keyword <code class="highlighter-rouge">AND</code> to specify that another action will be performed for the query. As you’ll find in subsequent sections you can  combine keywords to form complicated queries. For now consider the following example:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">query</span> <span class="o">=</span> <span class="s">'READ "/path/to/data" (separator = "</span><span class="err">\</span><span class="s">s+", header = None) AND</span><span class="se">\
+</span><span class="s"> REPLACE ("?", "mode") AND SPLIT (train = .8, test = .2, validation = .0) AND</span><span class="se">\
+</span><span class="s">  REGRESS (predictors = [2,3,4,5,6,7,8], label = 1, algorithm = simple)'</span>
+</code></pre></div></div>
+<p>While you haven’t formally been introducted  to  the  <code class="highlighter-rouge">REPLACE</code>, <code class="highlighter-rouge">SPLIT</code>, and <code class="highlighter-rouge">REGRESS</code> keywords yet, this query will perform the following steps:</p>
+
+<ul>
+  <li>
+    <ol>
+      <li>Read the dataset, delimited by “\s+” with no header.</li>
+    </ol>
+  </li>
+  <li>
+    <ol>
+      <li>Next it will replace any values of “?”.</li>
+    </ol>
+  </li>
+  <li>
+    <ol>
+      <li>Then it will split the data using a 80/20 split for training and testing respectively.</li>
+    </ol>
+  </li>
+  <li>
+    <ol>
+      <li>Then it will perform regression using columns 2-8 of the dataset as features, and column 1 as the label. The algorithm that SML will use is simple linear regression.</li>
+    </ol>
+  </li>
+</ul>
+
+<p>Currently, it’s not important to know exactly what every keyword is doing in the query however, it’s important to note that each keyword is delimited by an <code class="highlighter-rouge">AND</code> keyword. In the subsequent sections you’ll start to see the <code class="highlighter-rouge">AND</code> keyword used.
+___</p>
+<h2 id="cleaning-up-data">Cleaning Up Data</h2>
+
+<p>When working with datasets, values may be missing or <em>NaNs</em>, <em>NAs</em>, and other troublesome values may be present in a dataset. You can replace these values in SML by using the <code class="highlighter-rouge">REPLACE</code> keyword. The following example shows the syntax for the <code class="highlighter-rouge">REPLACE</code> keyword:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">'READ "/path/to/data" (separator = ",", header = None) AND REPLACE (missing = "NaN",  strategy = "mode")'</span>
+</code></pre></div></div>
+<p>When the <code class="highlighter-rouge">REPLACE</code> keyword is used it requires the first value to be one that you wish to replace, followed by the metric that you want to replace the column with. In the code snippet above you read in some hypotheical dataset and then replace any value of ‘NaN’ with the mode of the column. Currently the following  metrics have been implemented:</p>
+<ul>
+  <li>mode</li>
+  <li>mean</li>
+  <li>drop column (Removes column if 1 value of the replace value is in a column)</li>
+  <li>minimum</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Dataset</th>
+      <th style="text-align: center">Task</th>
+      <th style="text-align: center">Acknowledgement</th>
+      <th style="text-align: center">Tutorial</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"><strong>Titanic</strong></td>
+      <td style="text-align: center"><code class="highlighter-rouge">READ</code> + <code class="highlighter-rouge">REPLACE</code></td>
+      <td style="text-align: center"><a href="https://www.kaggle.com/c/titanic/data">link</a></td>
+      <td style="text-align: center"><a href="https://github.com/UI-DataScience/sml/blob/master/dataflows/replace/Titanic-REPLACE.ipynb">notebook</a></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><strong>Auto-MPG</strong></td>
+      <td style="text-align: center"><code class="highlighter-rouge">READ</code> + <code class="highlighter-rouge">REPLACE</code></td>
+      <td style="text-align: center"><a href="https://archive.ics.uci.edu/ml/datasets/Auto+MPG">link</a></td>
+      <td style="text-align: center"><a href="https://github.com/UI-DataScience/sml/blob/master/dataflows/replace/autompg-REPLACE.ipynb">notebook</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+<h2 id="partitioning-datasets">Partitioning Datasets</h2>
+
+<p>For almost all situations in Machine Learning it’s often useful to split a dataset into Training and Testing sets. To split data with SML you specify the <code class="highlighter-rouge">SPLIT</code> keyword  The following example shows the SYNTAX for the <code class="highlighter-rouge">SPLIT</code>: keyword:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">query</span> <span class="o">=</span> <span class="s">'READ "/path/to/data" (separator = ",", header = None) AND SPLIT (train = 0.8, test = 0.2)'</span>
+</code></pre></div></div>
+<p>The <code class="highlighter-rouge">SPLIT</code> keyword requires <em>train</em> and <em>test</em> to have some numerical value that adds up to 1 enclosed in <em>()</em>. Here we read some hypthetical dataset using the <code class="highlighter-rouge">READ</code> keyword. From there we also include the keyword <code class="highlighter-rouge">AND</code> which specifies that additional command will be used in the query. Then the keyword <code class="highlighter-rouge">SPLIT</code> is used and we specify that we want 80% of the dataset that is read in to be used for training and the other 20% to be testing.</p>
+
+<p>The table below contains examples of SML reading in data from various datasets and splitting the data into various training and testing sets. To view the tutorials for the <code class="highlighter-rouge">SPLIT</code> keyword click on the hyperlinks in the Tutorial Column. All of these datasets can be downloaded by clicking the hyperlinks in the Acknowledgment’s column.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Dataset</th>
+      <th style="text-align: center">Task</th>
+      <th style="text-align: center">Acknowledgement</th>
+      <th style="text-align: center">Tutorial</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"><strong>Iris</strong></td>
+      <td style="text-align: center"><code class="highlighter-rouge">READ</code> + <code class="highlighter-rouge">SPLIT</code></td>
+      <td style="text-align: center"><a href="https://archive.ics.uci.edu/ml/datasets/Iris">link</a></td>
+      <td style="text-align: center"><a href="https://github.com/UI-DataScience/sml/blob/master/dataflows/split/iris-READ-SPLIT.ipynb">notebook</a></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><strong>Auto-MPG</strong></td>
+      <td style="text-align: center"><code class="highlighter-rouge">READ</code> + <code class="highlighter-rouge">SPLIT</code></td>
+      <td style="text-align: center"><a href="https://archive.ics.uci.edu/ml/datasets/Auto+MPG">link</a></td>
+      <td style="text-align: center"><a href="https://github.com/UI-DataScience/sml/blob/master/dataflows/split/auto_mpg-READ-SPLIT.ipynb">notebook</a></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><strong>Wine</strong></td>
+      <td style="text-align: center"><code class="highlighter-rouge">READ</code> + <code class="highlighter-rouge">SPLIT</code></td>
+      <td style="text-align: center"><a href="https://archive.ics.uci.edu/ml/datasets/Wine">link</a></td>
+      <td style="text-align: center"><a href="https://github.com/UI-DataScience/sml/blob/master/dataflows/split/wine-READ-SPLIT.ipynb">notebook</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+<h2 id="using-classification-alogorithms">Using Classification Alogorithms</h2>
+
+<p>If you want to run a classfication algorithm using SML you use the <code class="highlighter-rouge">CLASSIFY</code> keyword. The current algorithms availiable for classification are:</p>
+<ul>
+  <li>Support Vector Machines (SVM)</li>
+  <li>Naive Bayes</li>
+  <li>Random Forest</li>
+  <li>Logistic Rergession</li>
+  <li>K-Nearest Neighbors</li>
+</ul>
+
+<p>Consider the following code snippet with respect to the syntax for the <code class="highlighter-rouge">CLASSIFY</code> keyword:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">'CLASSIFY (predictors = [1,2,3,4], label = 5, algorithm = svm)'</span>
+</code></pre></div></div>
+<p>The syntax is to specify <code class="highlighter-rouge">CLASSIFY</code> with the following enclosed in <em>()</em>: columns of the dataset that you want to use as features, the label you want to classify, and the algorithm that you want to use.</p>
+
+<p>The table below contains examples of SML reading in data from various datasets, splitting the data into various training and testing sets, and performing classifcation over the dataset with a classifcation algorithim. To view the tutorials for the <code class="highlighter-rouge">CLASSIFY</code> keyword click on the hyperlinks in the Tutorial Column. All of these datasets can be downloaded by clicking the hyperlinks in the Acknowledgment’s column.</p>
+
+<p><em>It’s worth noting that for the Titanic, Chronic Kidney Disease, and U.S Census Dataset the REPLACE keyword is used, this keyword will be talked about in a subsequent section.</em></p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Dataset</th>
+      <th style="text-align: center">Task</th>
+      <th style="text-align: center">Algorithm</th>
+      <th style="text-align: center">Acknowledgement</th>
+      <th style="text-align: center">Tutorial</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"><strong>Iris</strong></td>
+      <td style="text-align: center"><code class="highlighter-rouge">READ</code> + <code class="highlighter-rouge">SPLIT</code> + <code class="highlighter-rouge">CLASSIFY</code></td>
+      <td style="text-align: center">SVM</td>
+      <td style="text-align: center"><a href="https://archive.ics.uci.edu/ml/datasets/Iris">link</a></td>
+      <td style="text-align: center"><a href="https://github.com/UI-DataScience/sml/blob/master/dataflows/classify/iris_SVM-READ-SPLIT-CLASSIFY.ipynb">notebook</a></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><strong>Spam Detection</strong></td>
+      <td style="text-align: center"><code class="highlighter-rouge">READ</code> + <code class="highlighter-rouge">SPLIT</code> + <code class="highlighter-rouge">CLASSIFY</code></td>
+      <td style="text-align: center">Naive Bayes</td>
+      <td style="text-align: center"><a href="https://archive.ics.uci.edu/ml/datasets/Spambase">link</a></td>
+      <td style="text-align: center"><a href="https://github.com/UI-DataScience/sml/blob/master/dataflows/classify/spam_NaiveBayes-READ-SPLIT-CLASSIFY.ipynb">notebook</a></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><strong>Titanic</strong></td>
+      <td style="text-align: center"><code class="highlighter-rouge">READ</code> +  <code class="highlighter-rouge">REPLACE</code> + <code class="highlighter-rouge">SPLIT</code> + <code class="highlighter-rouge">CLASSIFY</code></td>
+      <td style="text-align: center">Random Forest</td>
+      <td style="text-align: center"><a href="https://www.kaggle.com/c/titanic/data">link</a></td>
+      <td style="text-align: center"><a href="https://github.com/UI-DataScience/sml/blob/master/dataflows/classify/Titanic_RandomForest-READ-SPLIT-CLASSIFY.ipynb">notebook</a></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><strong>Chronic Kidney Disease</strong></td>
+      <td style="text-align: center"><code class="highlighter-rouge">READ</code> + <code class="highlighter-rouge">REPLACE</code> + <code class="highlighter-rouge">SPLIT</code> + <code class="highlighter-rouge">CLASSIFY</code></td>
+      <td style="text-align: center">Logistic Regression</td>
+      <td style="text-align: center"><a href="https://archive.ics.uci.edu/ml/datasets/Chronic_Kidney_Disease">link</a></td>
+      <td style="text-align: center"><a href="https://github.com/UI-DataScience/sml/blob/master/dataflows/classify/Kidney-Logistic_Regression-READ-SPLIT-REPLACE-CLASSIFY.ipynb">notebook</a></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><strong>U.S. Census</strong></td>
+      <td style="text-align: center"><code class="highlighter-rouge">READ</code> + <code class="highlighter-rouge">REPLACE</code> + <code class="highlighter-rouge">SPLIT</code> + <code class="highlighter-rouge">CLASSIFY</code></td>
+      <td style="text-align: center">Logistic Regression</td>
+      <td style="text-align: center"><a href="https://archive.ics.uci.edu/ml/datasets/US+Census+Data+%281990%29">link</a></td>
+      <td style="text-align: center"><a href="https://github.com/UI-DataScience/sml/blob/master/dataflows/classify/Census-READ-SPLIT-REPLACE-CLASSIFY.ipynb">notebook</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+<h2 id="using-clustering-algorithms-tutorials-still-under-construction">Using Clustering Algorithms (Tutorials Still Under Construction)</h2>
+<p>If you want to run clustering algorithms using SML you use the <code class="highlighter-rouge">CLUSTER</code> keyword. The current algorithms availiable for clustering are:</p>
+<ul>
+  <li>K-Means Clustering</li>
+</ul>
+
+<p>Consider the following code snippet with respect to the syntax for the <code class="highlighter-rouge">CLUSTER</code> keyword:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">'CLUSTER (predictors = [1,2,3,4,5,6,7], algorithm = kmeans)'</span>
+</code></pre></div></div>
+<p>The syntax is to specify <code class="highlighter-rouge">CLUSTER</code> with the following enclosed in <em>()</em>: columns of the dataset that you want to use as features, and the algorithm that you want to use.</p>
+
+<p>The table below contains examples of SML reading in data from various datasets, splitting the data into various training and testing sets, and performing clustering over the dataset with a clustering algorithim. To view the tutorials for the <code class="highlighter-rouge">CLUSTER</code> keyword click on the hyperlinks in the Tutorial Column. All of these datasets can be downloaded by clicking the hyperlinks in the Acknowledgment’s column.</p>
+
+<p>Dataset | Task | Algorithm | Acknowledgement | Tutorial
+:—: | :—: | :—: | :—: | :—:
+<strong>Seeds</strong> | <code class="highlighter-rouge">READ</code> + <code class="highlighter-rouge">SPLIT</code> + <code class="highlighter-rouge">CLUSTER</code> | K-Means | <a href="https://archive.ics.uci.edu/ml/datasets/seeds">link</a> | notebook
+<strong>Wine</strong> | <code class="highlighter-rouge">READ</code> + <code class="highlighter-rouge">SPLIT</code> + <code class="highlighter-rouge">CLUSTER</code> | ? | <a href="https://archive.ics.uci.edu/ml/datasets/Wine">link</a> | notebook
+___</p>
+<h2 id="using-regression-algorithms">Using Regression Algorithms</h2>
+<p>If you want to run regression algorithms using SML you use the <code class="highlighter-rouge">REGRESS</code> keyword. The current algorithms availiable for regression are:</p>
+
+<ul>
+  <li>Simple Linear Regression</li>
+  <li>Ridge Regression</li>
+  <li>Lasso Regression</li>
+  <li>Elastic Net Regression</li>
+</ul>
+
+<p>Consider the following code snippet with respect to the syntax for the <code class="highlighter-rouge">REGRESS</code> keyword:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">'REGRESS (predictors = [1,2,3,4,5,6,7,8,9], label = 10, algorithm = ridge)'</span>
+</code></pre></div></div>
+<p>The syntax is to specify <code class="highlighter-rouge">REGRESS</code>  with the following enclosed in (): columns of the dataset that you want to use as features, the label that you want to predict and the algorithm that you want to use to do regression.</p>
+
+<p>The table below contains examples of SML reading in data from various datasets, splitting the data into various training and testing sets, and performing regression over the dataset with a specific regression algorithim. To view the tutorials for the <code class="highlighter-rouge">REGRESS</code> keyword click on the hyperlinks in the Tutorial Column. All of these datasets can be downloaded by clicking the hyperlinks in the Acknowledgment’s column.</p>
+
+<p>Dataset | Task | Algorithm | Acknowledgement | Tutorial
+:—: | :—: | :—: | :—: | :—:
+<strong>Auto-MPG</strong> | <code class="highlighter-rouge">READ</code> + <code class="highlighter-rouge">REPLACE</code> + <code class="highlighter-rouge">SPLIT</code> + <code class="highlighter-rouge">REGRESS</code> | Simple Linear Regression | <a href="https://archive.ics.uci.edu/ml/datasets/Auto+MPG">link</a> | <a href="https://github.com/UI-DataScience/sml/blob/master/dataflows/regress/autompg_LinearRegression-READ-REPLACE-SPLIT-REGRESS.ipynb">notebook</a>
+<strong>Computer Hardware</strong> | <code class="highlighter-rouge">READ</code> + <code class="highlighter-rouge">SPLIT</code> + <code class="highlighter-rouge">REGRESS</code> | Ridge Regression | <a href="https://archive.ics.uci.edu/ml/datasets/Computer+Hardware">link</a> | <a href="https://github.com/UI-DataScience/sml/blob/master/dataflows/regress/computer-RidgeRegression-READ-SPLIT-REGRESS.ipynb">notebook</a>
+<strong>Boston Housing</strong> | <code class="highlighter-rouge">READ</code> + <code class="highlighter-rouge">SPLIT</code> + <code class="highlighter-rouge">REGRESS</code> | Elastic Net | <a href="https://archive.ics.uci.edu/ml/datasets/Housing">link</a> | <a href="https://github.com/UI-DataScience/sml/blob/master/dataflows/regress/BostonHousing_ElasticNet-READ-SPLIT-REGRESS.ipynb">notebook</a>
+___</p>
+
+<h2 id="saving--loading-models">Saving / Loading Models</h2>
+
+<p>It’s possible to save models and reuse them later. To save a model in SML you use the <code class="highlighter-rouge">SAVE</code> keyword.
+Consider the following code snippet with respect to the syntax for the <code class="highlighter-rouge">SAVE</code> keyword:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">'SAVE "path/to/save/model"'</span>
+</code></pre></div></div>
+
+<p>The syntax is to specify <code class="highlighter-rouge">SAVE</code> followed by the path to save the model enclosed in <code class="highlighter-rouge">""</code>.</p>
+
+<p>To use this model again you use the <code class="highlighter-rouge">LOAD</code> keyword. Consider the following code snippet with respect to the syntax for the <code class="highlighter-rouge">LOAD</code> keyword:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">'LOAD /path/to/load/model'</span>
+</code></pre></div></div>
+
+<p>The syntax is to specify <code class="highlighter-rouge">LOAD</code>  followed by the path to save the model.</p>
+
+<p>The table below contains an example of SML reading in data from various datasets, splitting the data into various training and testing sets, and performing regression over the Auto-MPG dataset with a simple linear regression. The model is saved and then reloaded. To view the tutorials for the <code class="highlighter-rouge">SAVE</code> &amp; <code class="highlighter-rouge">LOAD</code> keywords click on the hyperlink in the Tutorial Column.  Again you can download the Auto-MPG dataset by clicking on the hyperlink in the Acknowledgement Column.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Dataset</th>
+      <th style="text-align: center">Task</th>
+      <th style="text-align: center">Algorithm</th>
+      <th style="text-align: center">Acknowledgement</th>
+      <th style="text-align: center">Tutorial</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"><strong>Auto-MPG</strong></td>
+      <td style="text-align: center"><code class="highlighter-rouge">READ</code> + <code class="highlighter-rouge">REPLACE</code> + <code class="highlighter-rouge">SPLIT</code> + <code class="highlighter-rouge">REGRESS</code> + <code class="highlighter-rouge">SAVE</code> + <code class="highlighter-rouge">LOAD</code></td>
+      <td style="text-align: center">Simple Linear Regression</td>
+      <td style="text-align: center"><a href="https://archive.ics.uci.edu/ml/datasets/Auto+MPG">link</a></td>
+      <td style="text-align: center"><a href="https://github.com/UI-DataScience/sml/blob/master/dataflows/regress/autompg_LinearRegression-READ-REPLACE-SPLIT-REGRESS.ipynb">notebook</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+<h2 id="plotting-datasets-and-metrics-of-algorithms">Plotting Datasets and Metrics of Algorithms</h2>
+
+<p>When using SML it’s possible to plot datasets or metrics of algorithms. The syntax to do this is <code class="highlighter-rouge">PLOT</code> followed by the enclosing the following in <em>()</em> The model type and the plot types. Consider the following code snippet with respect to the syntax for the <code class="highlighter-rouge">PLOT</code> keyword:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">'PLOT (modelType="AUTO", plotTypes="AUTO")''</span><span class="err">
+</span></code></pre></div></div>
+<p>Here were telling SML to generate plots based on the modelType (Regression, Classifcation, Clustering) that would provide the best information about the model and dataset.</p>
+
+<p>The table below contains examples of SML reading in data from various datasets, splitting the data into various training and testing sets, and performing some machine learning task over the dataset with a specific algorithim. To view the tutorials for the <code class="highlighter-rouge">PLOT</code> keyword click on the hyperlinks in the Tutorial Column. All of these datasets can be downloaded by clicking the hyperlinks in the Acknowledgment’s column.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Dataset</th>
+      <th>Task</th>
+      <th>Algorithm</th>
+      <th>Acknowledgement</th>
+      <th>Tutorial</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Iris</strong></td>
+      <td><code class="highlighter-rouge">READ</code> + <code class="highlighter-rouge">SPLIT</code> + <code class="highlighter-rouge">CLASSIFY</code> + <code class="highlighter-rouge">PLOT</code></td>
+      <td>SVM</td>
+      <td><a href="https://archive.ics.uci.edu/ml/datasets/Iris">link</a></td>
+      <td><a href="https://github.com/UI-DataScience/sml/blob/master/dataflows/plot/iris_svm-READ-SPLIT-CLASSIFY-PLOT.ipynb">notebook</a></td>
+    </tr>
+    <tr>
+      <td><strong>Auto-MPG</strong></td>
+      <td><code class="highlighter-rouge">READ</code> + <code class="highlighter-rouge">SPLIT</code> + <code class="highlighter-rouge">REGRESS</code> + <code class="highlighter-rouge">PLOT</code></td>
+      <td>Simple Linear Regression</td>
+      <td><a href="https://archive.ics.uci.edu/ml/datasets/Auto+MPG">link</a></td>
+      <td><a href="https://github.com/UI-DataScience/sml/blob/master/dataflows/plot/autompg_linear_regression-READ-SPLIT-REGRESS-PLOT.ipynb">notebook</a></td>
+    </tr>
+    <tr>
+      <td><strong>Seeds</strong></td>
+      <td><code class="highlighter-rouge">READ</code> + <code class="highlighter-rouge">SPLIT</code> + <code class="highlighter-rouge">CLUSTER</code> + <code class="highlighter-rouge">PLOT</code></td>
+      <td>K-Means</td>
+      <td><a href="https://archive.ics.uci.edu/ml/datasets/seeds">link</a></td>
+      <td><a href="https://github.com/UI-DataScience/sml/blob/master/dataflows/plot/seeds-READ-SPLIT-CLUSTER-PLOT.ipynb">notebook</a></td>
+    </tr>
+  </tbody>
+</table>
+
+
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
